@@ -1,27 +1,82 @@
-# ProjectTest
+# Portfólio 2.0
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
+Portfólio pessoal desenvolvido em **Angular 18** com suporte a temas (claro/escuro), internacionalização (PT/EN) e layout responsivo.
 
-## Development server
+## Sobre o projeto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Site one-page que apresenta experiência profissional, formação, habilidades e formas de contato. Inclui animação em estilo código no hero, timeline de experiências, cards de skills e certificações (incluindo AWS).
 
-## Code scaffolding
+## Funcionalidades
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Tema claro/escuro** — alternância via `ThemeToggle`
+- **Idiomas** — Português e Inglês com `TranslationService` e persistência no `localStorage`
+- **Seções**
+  - **Hero** — Apresentação com animação em código
+  - **Sobre** — Texto e cards (graduação, pós em Data Science, Engenharia de Computação, AWS Practitioner, AWS Solutions Architect, Etec, experiência)
+  - **Experiência** — Timeline (Rodonaves, Jediet, Prefeitura)
+  - **Skills** — Linguagens, frontend, backend, desktop, bancos de dados, cloud (AWS, Docker, CI/CD), IA (LLMs, RAG, OpenAI)
+  - **Contato** — E-mail, LinkedIn, GitHub e WhatsApp
 
-## Build
+## Stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Angular** 18 (standalone components, signals)
+- **TypeScript** 5.5
+- **SCSS** (variáveis e estilos globais em `src/styles/`)
+- **Angular SSR** (opcional)
 
-## Running unit tests
+## Como rodar
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Pré-requisitos
 
-## Running end-to-end tests
+- Node.js (versão compatível com Angular 18)
+- npm ou yarn
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Instalação
 
-## Further help
+```bash
+npm install
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Servidor de desenvolvimento
+
+```bash
+npm start
+# ou
+ng serve
+```
+
+Acesse `http://localhost:4200/`. A aplicação recarrega automaticamente ao alterar os arquivos.
+
+### Build de produção
+
+```bash
+ng build
+```
+
+Artefatos em `dist/`.
+
+### Testes
+
+```bash
+ng test
+```
+
+## Estrutura principal
+
+```
+src/app/
+├── home/                 # Página principal (hero, about, experience, skills, contact)
+├── components/           # button, highlight-card, skill-card, timeline-item, theme-toggle, language-selector
+├── services/             # translation.service, theme.service
+└── styles/               # Variáveis e estilos globais (SCSS)
+```
+
+## Contato
+
+- **E-mail:** rennanbaccili@gmail.com  
+- **LinkedIn:** [rennan-bacili-dev](https://www.linkedin.com/in/rennan-bacili-dev/)  
+- **GitHub:** [RennanBaccili](https://github.com/RennanBaccili)
+
+---
+
+*Projeto gerado com [Angular CLI](https://github.com/angular/angular-cli) 18.2.12.*
