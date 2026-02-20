@@ -1,0 +1,341 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+// ============================================
+// HERO SECTION
+// ============================================
+.hero-section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: $spacing-lg;
+  background: var(--gradient-secondary);
+  background-attachment: fixed;
+  transition: background 0.3s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--gradient-tertiary);
+    pointer-events: none;
+  }
+}
+
+.hero-content {
+  max-width: 1200px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-2xl;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  margin-bottom: $spacing-sm;
+  line-height: 1.2;
+}
+
+.greeting {
+  display: block;
+  font-size: 0.5em;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.name {
+  display: block;
+  @include gradient-text;
+  animation: gradientShift 3s ease infinite;
+}
+
+.hero-subtitle {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 600;
+  color: $primary-light;
+  margin-bottom: $spacing-md;
+}
+
+.hero-description {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: $spacing-lg;
+  line-height: 1.8;
+  max-width: 600px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+}
+
+.scroll-indicator {
+  transition: opacity 0.3s ease;
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+// Code Animation
+.hero-visual {
+  animation: fadeInRight 0.8s ease-out 0.2s both;
+}
+
+.code-animation {
+  @include card-style;
+  padding: $spacing-lg;
+  box-shadow: var(--shadow-lg);
+  font-family: 'Fira Code', 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card);
+  border-color: var(--border-color);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: $gradient-primary;
+  }
+}
+
+.code-line {
+  margin-bottom: 0.5rem;
+  opacity: 0;
+  animation: codeLineAppear 0.5s ease-out forwards;
+
+  &:nth-child(1) { animation-delay: 0.5s; }
+  &:nth-child(2) { animation-delay: 0.7s; }
+  &:nth-child(3) { animation-delay: 0.9s; }
+  &:nth-child(4) { animation-delay: 1.1s; }
+  &:nth-child(5) { animation-delay: 1.3s; }
+}
+
+.indent {
+  padding-left: 1.5rem;
+}
+
+.code-keyword { color: #c792ea; }
+.code-var { color: #82aaff; }
+.code-operator { color: #89ddff; }
+.code-value { color: #c3e88d; }
+.code-property { color: #f78c6c; }
+.code-string { color: #c3e88d; }
+
+// Scroll Indicator
+.scroll-indicator {
+  position: absolute;
+  bottom: $spacing-lg;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+
+.mouse {
+  width: 24px;
+  height: 40px;
+  border: 2px solid var(--text-muted);
+  border-radius: 15px;
+  position: relative;
+
+  &::before {
+    content: '';
+    width: 4px;
+    height: 8px;
+    background: var(--text-muted);
+    border-radius: 2px;
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scroll 2s infinite;
+  }
+}
+
+// ============================================
+// SECTIONS COMMON STYLES
+// ============================================
+.section-container {
+  @include section-container;
+}
+
+.section-title {
+  @include section-title;
+}
+
+// ============================================
+// ABOUT SECTION
+// ============================================
+.about-section {
+  background: var(--bg-dark);
+  position: relative;
+  transition: background-color 0.3s ease;
+}
+
+.about-content {
+  display: flex;
+  grid-template-columns: 2fr 1fr;
+  gap: $spacing-xl;
+  align-items: start;
+  flex-direction: column;
+}
+
+.about-text {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+
+  p {
+    margin-bottom: $spacing-md;
+  }
+}
+
+.about-intro {
+  font-size: 1.25rem;
+  color: var(--text-primary);
+
+  strong {
+    color: $primary-light;
+  }
+}
+
+.about-highlights {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: $spacing-md;
+  width: 100%;
+}
+
+// ============================================
+// EXPERIENCE SECTION
+// ============================================
+.experience-section {
+  background: var(--bg-darker);
+  transition: background-color 0.3s ease;
+}
+
+.timeline {
+  position: relative;
+  padding-left: $spacing-lg;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $gradient-primary;
+  }
+}
+
+// ============================================
+// SKILLS SECTION
+// ============================================
+.skills-section {
+  background: var(--bg-dark);
+  transition: background-color 0.3s ease;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: $spacing-lg;
+}
+
+// ============================================
+// CONTACT SECTION
+// ============================================
+.contact-section {
+  text-align: center;
+  background: var(--gradient-tertiary);
+  transition: background 0.3s ease;
+}
+
+.contact-description {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin-bottom: $spacing-lg;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  gap: $spacing-sm;
+  flex-wrap: wrap;
+}
+
+// ============================================
+// RESPONSIVE DESIGN
+// ============================================
+@include respond-to(md) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+  }
+
+  .hero-visual {
+    order: -1;
+  }
+
+  .about-content {
+    grid-template-columns: 1fr;
+  }
+
+  .about-highlights {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .timeline {
+    padding-left: 1.5rem;
+  }
+}
+
+@include respond-to(sm) {
+  .section-container {
+    padding: $spacing-xl 1.5rem;
+  }
+
+  .about-highlights {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-buttons,
+  .contact-buttons {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}

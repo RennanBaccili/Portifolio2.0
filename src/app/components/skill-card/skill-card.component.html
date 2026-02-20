@@ -1,0 +1,13 @@
+<div class="skill-category">
+  <h3 class="category-title">
+    @if (icon) {
+      <span class="category-icon">{{ icon }}</span>
+    }
+    {{ title }}
+  </h3>
+  <div class="skill-tags">
+    @for (skill of skills; track skill) {
+      <span class="skill-tag">{{ skill }}</span>
+    }
+  </div>
+</div>

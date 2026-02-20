@@ -1,0 +1,4 @@
+Coloque aqui a imagem do badge AWS Certified Solutions Architect - Associate com o nome:
+  aws-solutions-architect-badge.png
+
+O arquivo será exibido no card da certificação na seção Sobre Mim.

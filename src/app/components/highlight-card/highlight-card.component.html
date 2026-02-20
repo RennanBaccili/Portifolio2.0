@@ -1,0 +1,11 @@
+<div class="highlight-card">
+  @if (imageUrl) {
+    <div class="highlight-image">
+      <img [src]="imageUrl" [alt]="title" />
+    </div>
+  } @else if (icon) {
+    <div class="highlight-icon">{{ icon }}</div>
+  }
+  <h3>{{ title }}</h3>
+  <p>{{ description }}</p>
+</div>

@@ -1,0 +1,87 @@
+// ============================================
+// THEME STYLES
+// ============================================
+
+@import './variables';
+
+// Dark Theme (padrão)
+.dark-theme {
+  --primary-color: #{$primary-color};
+  --primary-dark: #{$primary-dark};
+  --primary-light: #{$primary-light};
+  --secondary-color: #{$secondary-color};
+  --accent-color: #{$accent-color};
+  
+  --bg-dark: #{$bg-dark};
+  --bg-darker: #{$bg-darker};
+  --bg-card: #{$bg-card};
+  
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-muted: #{$text-muted};
+  
+  --border-color: #{$border-color};
+  
+  --gradient-secondary: #{$gradient-secondary};
+  --gradient-tertiary: #{$gradient-tertiary};
+  
+  --shadow-sm: #{$shadow-sm};
+  --shadow-md: #{$shadow-md};
+  --shadow-lg: #{$shadow-lg};
+  --shadow-glow: #{$shadow-glow};
+}
+
+// Light Theme
+.light-theme {
+  --primary-color: #{$primary-color};
+  --primary-dark: #{$primary-dark};
+  --primary-light: #{$primary-light};
+  --secondary-color: #{$secondary-color};
+  --accent-color: #{$accent-color};
+  
+  --bg-dark: #{$light-bg-secondary};
+  --bg-darker: #{$light-bg-primary};
+  --bg-card: #{$light-bg-card};
+  
+  --text-primary: #{$light-text-primary};
+  --text-secondary: #{$light-text-secondary};
+  --text-muted: #{$light-text-muted};
+  
+  --border-color: #{$light-border-color};
+  
+  --gradient-secondary: #{$light-gradient-secondary};
+  --gradient-tertiary: #{$light-gradient-tertiary};
+  
+  --shadow-sm: #{$light-shadow-sm};
+  --shadow-md: #{$light-shadow-md};
+  --shadow-lg: #{$light-shadow-lg};
+  --shadow-glow: #{$light-shadow-glow};
+}
+
+// Portfolio container com suporte a temas
+.portfolio-container {
+  background: var(--bg-darker);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Cards com suporte a temas
+.card {
+  background: var(--bg-card);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+// Textos com suporte a temas
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.text-muted {
+  color: var(--text-muted);
+}

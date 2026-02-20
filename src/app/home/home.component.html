@@ -1,0 +1,213 @@
+<div class="portfolio-container">
+  <!-- Theme Toggle -->
+  <div class="theme-toggle-container">
+    <app-theme-toggle></app-theme-toggle>
+  </div>
+  
+  <!-- Language Selector -->
+  <div class="language-selector-container">
+    <app-language-selector></app-language-selector>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title">
+          <span class="greeting">{{ t().hero.greeting }}</span>
+          <span class="name">{{ t().hero.name }}</span>
+        </h1>
+        <h2 class="hero-subtitle">
+          {{ t().hero.subtitle }}
+        </h2>
+        <p class="hero-description">
+          {{ t().hero.description }}
+        </p>
+        <div class="hero-buttons">
+          <app-button href="#about" [variant]="ButtonVariant.PRIMARY" [text]="t().hero.aboutButton"></app-button>
+          <app-button href="#skills" [variant]="ButtonVariant.SECONDARY" [text]="t().hero.skillsButton"></app-button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="code-animation">
+          <div class="code-line">
+            <span class="code-keyword">const</span>
+            <span class="code-var"> developer</span>
+            <span class="code-operator"> =</span>
+            <span class="code-value">{{ '{' }}</span>
+          </div>
+          <div class="code-line indent">
+            <span class="code-property">name:</span>
+            <span class="code-string"> '{{ t().hero.name }}'</span>,
+          </div>
+          <div class="code-line indent">
+            <span class="code-property">role:</span>
+            <span class="code-string"> '{{ t().hero.subtitle }}'</span>,
+          </div>
+          <div class="code-line indent">
+            <span class="code-property">passion:</span>
+            <span class="code-string"> 'Building amazing things'</span>
+          </div>
+          <div class="code-line">
+            <span class="code-value">{{ '}' }};</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-indicator" [class.hidden]="!scrollIndicatorVisible()">
+      <div class="mouse"></div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="section-container">
+      <h2 class="section-title">{{ t().about.title }}</h2>
+      <div class="about-content">
+        <div class="about-text">
+          <p class="about-intro">
+            {{ t().about.intro }}
+          </p>
+          <p>
+            {{ t().about.paragraph1 }}
+          </p>
+          <p>
+            {{ t().about.paragraph2 }}
+          </p>
+          <p>
+            {{ t().about.etec }}
+          </p>
+        </div>
+        <div class="about-highlights">
+          <app-highlight-card 
+            icon="🎓"
+            [title]="t().about.highlights.graduation.title"
+            [description]="t().about.highlights.graduation.description">
+          </app-highlight-card>
+          <app-highlight-card 
+            icon="📊"
+            [title]="t().about.highlights.postgradDataScience.title"
+            [description]="t().about.highlights.postgradDataScience.description">
+          </app-highlight-card>
+          <app-highlight-card 
+            icon="⚙️"
+            [title]="t().about.highlights.postgradComputerEngineering.title"
+            [description]="t().about.highlights.postgradComputerEngineering.description">
+          </app-highlight-card>
+          <app-highlight-card 
+            icon="☁️"
+            [title]="t().about.highlights.awsPractitioner.title"
+            [description]="t().about.highlights.awsPractitioner.description">
+          </app-highlight-card>
+          <app-highlight-card 
+            imageUrl="/img-solution.png"
+            [title]="t().about.highlights.awsSolutionsArchitect.title"
+            [description]="t().about.highlights.awsSolutionsArchitect.description">
+          </app-highlight-card>
+          <app-highlight-card 
+            icon="💻"
+            [title]="t().about.highlights.etec.title"
+            [description]="t().about.highlights.etec.description">
+          </app-highlight-card>
+          <app-highlight-card 
+            icon="💼"
+            [title]="t().about.highlights.experience.title"
+            [description]="t().about.highlights.experience.description">
+          </app-highlight-card>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="experience-section">
+    <div class="section-container">
+      <h2 class="section-title">{{ t().experience.title }}</h2>
+      <div class="timeline">
+        <app-timeline-item
+          [title]="t().experience.rodonaves.title"
+          [company]="t().experience.rodonaves.company"
+          [period]="t().experience.rodonaves.period"
+          [items]="t().experience.rodonaves.items">
+        </app-timeline-item>
+        <app-timeline-item
+          [title]="t().experience.jediet.title"
+          [company]="t().experience.jediet.company"
+          [period]="t().experience.jediet.period"
+          [items]="t().experience.jediet.items">
+        </app-timeline-item>
+        <app-timeline-item
+          [title]="t().experience.prefeitura.title"
+          [company]="t().experience.prefeitura.company"
+          [period]="t().experience.prefeitura.period"
+          [items]="t().experience.prefeitura.items">
+        </app-timeline-item>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills-section">
+    <div class="section-container">
+      <h2 class="section-title">{{ t().skills.title }}</h2>
+      <div class="skills-grid">
+        <app-skill-card
+          icon="💻"
+          [title]="t().skills.categories.languages"
+          [skills]="['C#', 'TypeScript', 'JavaScript', 'Java']">
+        </app-skill-card>
+        <app-skill-card
+          icon="🎨"
+          [title]="t().skills.categories.frontend"
+          [skills]="['Angular', 'React', 'Vaadin']">
+        </app-skill-card>
+        <app-skill-card
+          icon="⚙️"
+          [title]="t().skills.categories.backend"
+          [skills]="['.NET', 'NestJS', 'Spring Boot']">
+        </app-skill-card>
+        <app-skill-card
+          icon="🖥️"
+          [title]="t().skills.categories.desktop"
+          [skills]="['Windows Forms']">
+        </app-skill-card>
+        <app-skill-card
+          icon="🗄️"
+          [title]="t().skills.categories.databases"
+          [skills]="['Oracle', 'PostgreSQL', 'MySQL']">
+        </app-skill-card>
+        <app-skill-card
+          icon="☁️"
+          [title]="t().skills.categories.cloud"
+          [skills]="['AWS', 'EC2', 'S3', 'RDS', 'IAM', 'Lambda', 'API Gateway', 'Docker', 'Git', 'CI/CD']">
+        </app-skill-card>
+        <app-skill-card
+          icon="🤖"
+          [title]="t().skills.categories.ai"
+          [skills]="['LLMs', 'RAG', 'OpenAI API', 'Assistentes Inteligentes']">
+        </app-skill-card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <div class="section-container">
+      <h2 class="section-title">{{ t().contact.title }}</h2>
+      <p class="contact-description">
+        {{ t().contact.description }}
+      </p>
+      <div class="contact-buttons">
+        <app-button href="mailto:rennanbaccili@gmail.com" [variant]="ButtonVariant.PRIMARY" [text]="t().contact.contactButton"></app-button>
+        <app-button href="https://www.linkedin.com/in/rennan-bacili-dev/" [variant]="ButtonVariant.SECONDARY" [text]="t().contact.linkedin" [targetValue]="'_blank'"></app-button>
+        <app-button href="https://github.com/RennanBaccili" [variant]="ButtonVariant.SECONDARY" [text]="t().contact.github" [targetValue]="'_blank'"></app-button>
+        <app-button 
+            href="https://wa.me/19995775187" 
+            [variant]="ButtonVariant.SECONDARY" 
+            [text]="t().contact.whatsapp" 
+            [targetValue]="'_blank'">
+        </app-button>
+      </div>
+    </div>
+  </section>
+</div>

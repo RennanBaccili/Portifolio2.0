@@ -1,0 +1,11 @@
+<button 
+  class="theme-toggle"
+  (click)="toggleTheme()"
+  [attr.aria-label]="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+  [attr.title]="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
+  @if (isDark) {
+    <span class="theme-icon">☀️</span>
+  } @else {
+    <span class="theme-icon">🌙</span>
+  }
+</button>

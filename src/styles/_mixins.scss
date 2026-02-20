@@ -1,0 +1,68 @@
+// ============================================
+// MIXINS
+// ============================================
+
+@import './variables';
+
+// Responsive breakpoints
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) {
+      @content;
+    }
+  }
+}
+
+// Gradient text
+@mixin gradient-text($gradient: $gradient-primary) {
+  background: $gradient;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// Card styles
+@mixin card-style {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-md;
+  padding: $spacing-lg;
+  transition: all $transition-normal;
+}
+
+// Button base
+@mixin button-base {
+  padding: 0.875rem 2rem;
+  border-radius: $border-radius-sm;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all $transition-normal;
+  display: inline-block;
+  border: 2px solid transparent;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+// Section container
+@mixin section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-3xl $spacing-lg;
+}
+
+// Section title
+@mixin section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  @include gradient-text;
+}

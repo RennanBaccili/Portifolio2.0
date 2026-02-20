@@ -1,0 +1,79 @@
+// ============================================
+// COMMON STYLES
+// ============================================
+
+@import './variables';
+@import './mixins';
+
+// Global reset
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+// Portfolio container
+.portfolio-container {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-darker);
+  color: var(--text-primary);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+// Theme toggle container
+.theme-toggle-container {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 1000;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+// Language selector container
+.language-selector-container {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+// Button styles
+.btn {
+  @include button-base;
+}
+
+.btn-primary {
+  background: $gradient-primary;
+  color: var(--text-primary);
+  box-shadow: var(--shadow-glow);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+  }
+
+  .light-theme & {
+    color: white;
+  }
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-color);
+
+  &:hover {
+    background: var(--bg-card);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+  }
+}

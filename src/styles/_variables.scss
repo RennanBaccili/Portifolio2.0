@@ -1,0 +1,80 @@
+// ============================================
+// VARIABLES & THEME COLORS
+// ============================================
+
+// Dark Theme (padrão atual)
+$primary-color: #6366f1;
+$primary-dark: #4f46e5;
+$primary-light: #818cf8;
+$secondary-color: #8b5cf6;
+$accent-color: #ec4899;
+
+// Dark Background Colors
+$bg-dark: #0f172a;
+$bg-darker: #020617;
+$bg-card: #1e293b;
+
+// Dark Text Colors
+$text-primary: #f1f5f9;
+$text-secondary: #cbd5e1;
+$text-muted: #94a3b8;
+
+// Dark Border Colors
+$border-color: #334155;
+
+// Light Theme Colors
+$light-bg-primary: #ffffff;
+$light-bg-secondary: #f8fafc;
+$light-bg-card: #ffffff;
+$light-text-primary: #0f172a;
+$light-text-secondary: #475569;
+$light-text-muted: #64748b;
+$light-border-color: #e2e8f0;
+$light-shadow: rgba(0, 0, 0, 0.1);
+
+// Gradients
+$gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+$gradient-secondary: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+$gradient-tertiary: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%), 
+                     radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+
+// Light Theme Gradients
+$light-gradient-secondary: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+$light-gradient-tertiary: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%), 
+                          radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+
+// Shadows
+$shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+$shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+$shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+$shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+
+// Light Theme Shadows
+$light-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+$light-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+$light-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.12);
+$light-shadow-glow: 0 0 20px rgba(99, 102, 241, 0.2);
+
+// Spacing
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 1.5rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+$spacing-2xl: 4rem;
+$spacing-3xl: 5rem;
+
+// Border Radius
+$border-radius-sm: 0.5rem;
+$border-radius-md: 1rem;
+$border-radius-lg: 1.5rem;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Breakpoints
+$breakpoint-sm: 640px;
+$breakpoint-md: 968px;
+$breakpoint-lg: 1200px;

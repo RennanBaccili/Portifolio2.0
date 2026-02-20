@@ -1,0 +1,42 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.highlight-card {
+  @include card-style;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+.highlight-icon {
+  font-size: 2.5rem;
+  margin-bottom: $spacing-sm;
+}
+
+.highlight-image {
+  margin-bottom: $spacing-sm;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    max-width: 120px;
+    height: auto;
+    display: block;
+  }
+}
+
+.highlight-card h3 {
+  font-size: 1.125rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.highlight-card p {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}

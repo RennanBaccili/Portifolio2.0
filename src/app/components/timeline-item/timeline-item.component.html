@@ -1,0 +1,21 @@
+<div class="timeline-item">
+  <div class="timeline-marker"></div>
+  <div class="timeline-content">
+    <div class="timeline-header">
+      <h3>{{ title }}</h3>
+      @if (company) {
+        <span class="timeline-company">{{ company }}</span>
+      }
+      @if (period) {
+        <span class="timeline-period">{{ period }}</span>
+      }
+    </div>
+    @if (hasItems) {
+      <ul class="timeline-details">
+@for (item of items; track $index) {
+        <li>{{ item }}</li>
+}
+      </ul>
+    }
+  </div>
+</div>
