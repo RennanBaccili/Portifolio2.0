@@ -141,7 +141,7 @@ const translations: Record<Language, Translations> = {
         },
         experience: {
           title: 'Experiência',
-          description: '3+ anos desenvolvendo soluções'
+          description: '5+ anos desenvolvendo soluções'
         }
       }
     },
@@ -212,7 +212,7 @@ const translations: Record<Language, Translations> = {
     },
     about: {
       title: 'About Me',
-      intro: 'I am a Full Stack Software Engineer with 3 years of experience in software development, holding a degree in Systems Analysis and Development from Uninter, as well as a postgraduate degree in Computer Engineering and another in Data Science and Artificial Intelligence.',
+      intro: 'I am a Full Stack Software Engineer with 5 years of experience in software development, holding a degree in Systems Analysis and Development from Uninter, as well as a postgraduate degree in Computer Engineering and another in Data Science and Artificial Intelligence.',
       paragraph1: 'I work on developing frontend, backend, and desktop solutions, participating in the entire application lifecycle, from requirements gathering to production deployment and maintenance.',
       paragraph2: 'I have a strong focus on code quality, scalability, software architecture, and best practices. In recent projects, I have been actively working with applied Artificial Intelligence, especially in developing intelligent assistants and LLM-based solutions, using RAG and integrating with AI APIs.',
       etec: 'Technical degree in Internet Computing from ETEC Manoel dos Reis Araújo (2015 - 2018).',
@@ -243,7 +243,7 @@ const translations: Record<Language, Translations> = {
         },
         experience: {
           title: 'Experience',
-          description: '3+ years developing solutions'
+          description: '5+ years developing solutions'
         }
       }
     },
