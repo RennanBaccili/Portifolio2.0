@@ -4,7 +4,7 @@
 .highlight-card {
   @include card-style;
   text-align: center;
-
+  height: 35vh;
   &:hover {
     transform: translateY(-5px);
     border-color: var(--primary-color);
@@ -15,6 +15,8 @@
 .highlight-icon {
   font-size: 2.5rem;
   margin-bottom: $spacing-sm;
+  min-height: 5vh;
+  height: 10vh;
 }
 
 .highlight-image {
@@ -22,6 +24,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 10vh;
 
   img {
     max-width: 120px;
@@ -34,9 +37,11 @@
   font-size: 1.125rem;
   margin-bottom: 0.5rem;
   color: var(--text-primary);
+  min-height: 7vh;
 }
 
 .highlight-card p {
   font-size: 0.875rem;
   color: var(--text-muted);
+  min-height: 10vh;
 }

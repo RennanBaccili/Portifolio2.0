@@ -3,7 +3,7 @@
 
 .skill-category {
   @include card-style;
-
+  height: 33vh;
   &:hover {
     transform: translateY(-5px);
     border-color: var(--primary-color);
@@ -31,18 +31,20 @@
 }
 
 .skill-tag {
-  background: var(--bg-dark);
+  background: transparent;
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
   padding: 0.5rem 1rem;
   border-radius: $border-radius-sm;
   font-size: 0.875rem;
   transition: all $transition-normal;
+  display: inline-block;
+  cursor: default;
 
   &:hover {
-    background: $gradient-primary;
-    border-color: transparent;
-    color: var(--primary-dark);
-    transform: scale(1.05);
+    background: var(--bg-card);
+    border-color: var(--primary-color);
+    color: var(--text-primary);
+    transform: translateY(-2px);
   }
 }

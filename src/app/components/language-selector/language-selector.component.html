@@ -1,18 +1,19 @@
 <div class="language-selector">
-  <button 
-    class="lang-btn" 
-    [class.active]="currentLanguage() === 'pt'"
-    (click)="selectLanguage('pt')"
-    [attr.aria-label]="'Português'"
-    title="Português">
-    <span class="flag">🇧🇷</span>
-  </button>
-  <button 
-    class="lang-btn" 
-    [class.active]="currentLanguage() === 'en'"
-    (click)="selectLanguage('en')"
-    [attr.aria-label]="'English'"
-    title="English">
-    <span class="flag">🇺🇸</span>
-  </button>
+  <button
+  class="lang-btn"
+  [class.active]="currentLanguage() === 'pt'"
+  (click)="selectLanguage('pt')"
+  aria-label="Portuguese"
+  title="Português">
+  <img src="flag-br.svg" alt="" class="flag" />
+</button>
+
+<button
+  class="lang-btn"
+  [class.active]="currentLanguage() === 'en'"
+  (click)="selectLanguage('en')"
+  aria-label="English"
+  title="English">
+  <img src="flag-us.png" alt="" class="flag" />
+</button>
 </div>
