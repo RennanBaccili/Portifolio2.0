@@ -184,31 +184,12 @@
   transition:
     opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.6s ease-out;
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: inherit;
-    background:
-      radial-gradient(circle at top left, rgba(129, 140, 248, 0.28), transparent 60%),
-      radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.16), transparent 55%);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.7s $transition-normal;
-  }
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 
   &--visible {
     opacity: 1;
     transform: translateY(0);
     filter: blur(0);
-    border-color: rgba(129, 140, 248, 0.6);
-
-    &::before {
-      opacity: 1;
-    }
   }
 }
 
@@ -262,16 +243,12 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   border-radius: $border-radius-lg;
-  border: 1px solid rgba(148, 163, 184, 0.6);
-  background:
-    radial-gradient(circle at top left, rgba(129, 140, 248, 0.3), transparent 55%),
-    radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 1));
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  background: var(--bg-card);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow:
-    0 16px 45px rgba(15, 23, 42, 0.9),
-    0 0 0 1px rgba(15, 23, 42, 1);
+  box-shadow: 0 16px 35px rgba(15, 23, 42, 0.85);
 }
 
 .project-flow__image-img {
@@ -291,9 +268,7 @@
 
 .project-flow__image-img:hover {
   transform: translateY(-2px) scale(1.01);
-  box-shadow:
-    0 18px 55px rgba(15, 23, 42, 0.85),
-    0 0 0 1px rgba(15, 23, 42, 0.9);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
 }
 
 .project-flow__image-label {
@@ -367,10 +342,7 @@
   border-radius: $border-radius-lg;
   overflow: hidden;
   background: var(--bg-dark);
-  box-shadow:
-    0 24px 80px rgba(15, 23, 42, 0.95),
-    0 0 0 1px rgba(15, 23, 42, 1);
-  animation: lightbox-content-in 0.35s ease-out forwards;
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.95);
 }
 
 .image-lightbox__img {
@@ -404,26 +376,4 @@
   background: var(--primary-color);
   border-color: var(--primary-color);
   transform: translateY(-1px);
-}
-
-@keyframes lightbox-backdrop-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes lightbox-content-in {
-  from {
-    opacity: 0;
-    transform: translateY(20px) scale(0.96);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
 }
