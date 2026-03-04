@@ -1,0 +1,115 @@
+<div class="project-detail">
+  <div class="project-detail__top-bar">
+    <app-theme-toggle></app-theme-toggle>
+    <app-language-selector></app-language-selector>
+  </div>
+
+  <div class="project-detail__container">
+    <a routerLink="/" fragment="projects" class="project-detail__back">
+      ‹ {{ t().projectDetail.backToProjects }}
+    </a>
+
+    @if (title()) {
+      <header class="project-detail__header">
+        <h1 class="project-detail__title">{{ title() }}</h1>
+        @if (subtitle()) {
+          <p class="project-detail__subtitle">{{ subtitle() }}</p>
+        }
+      </header>
+
+      <section class="project-section project-section--architecture">
+        <h2 class="project-section__title">Visão geral e arquitetura</h2>
+
+        @if (architectureSections().length > 0) {
+          <div class="project-section__body">
+            @for (section of architectureSections(); track section.title) {
+              <article class="project-article">
+                <h3 class="project-article__title">{{ section.title }}</h3>
+                <p class="project-article__content">
+                  {{ section.content }}
+                </p>
+              </article>
+            }
+          </div>
+        }
+      </section>
+
+      <section class="project-section project-section--ui">
+        <h2 class="project-section__title">Fluxo funcional e principais telas</h2>
+
+        <p class="project-section__intro">
+          As telas a seguir mostram como o LifePlus é usado no dia a dia, desde o login até a teleconsulta e o registro completo do prontuário médico.
+        </p>
+
+        <div class="project-flow">
+          <div class="project-flow__hint">
+            <span class="project-flow__hint-dot"></span>
+            <span class="project-flow__hint-text">
+              Role a página para ir avançando pelas telas do fluxo.
+            </span>
+          </div>
+
+          @for (section of uiSections(); track section.id; let i = $index) {
+            <article
+              class="project-flow__slide"
+              #flowSlide
+            >
+              <div class="project-flow__slide-body">
+                <div class="project-flow__image">
+                  <div class="project-flow__image-frame">
+                    @if (section.imageSrc) {
+                      <img
+                        class="project-flow__image-img"
+                        [src]="section.imageSrc"
+                        [alt]="section.name + ' - LifePlus'"
+                        [title]="section.name + ' - LifePlus'"
+                        loading="lazy"
+                        (click)="openImageFullscreen(section.imageSrc!)"
+                      />
+                    } @else {
+                      <span class="project-flow__image-label">
+                        {{ section.imageLabel }}
+                      </span>
+                    }
+                  </div>
+                </div>
+
+                <div class="project-flow__text">
+                  <p class="project-flow__paragraph">
+                    {{ section.description1 }}
+                  </p>
+                  <p class="project-flow__paragraph">
+                    {{ section.description2 }}
+                  </p>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+      </section>
+    } @else {
+      <p class="project-detail__not-found">Projeto não encontrado.</p>
+    }
+  </div>
+  @if (fullscreenImageSrc()) {
+    <div class="image-lightbox" (click)="closeFullscreen()">
+      <div class="image-lightbox__backdrop"></div>
+      <div class="image-lightbox__content" (click)="$event.stopPropagation()">
+        <img
+          class="image-lightbox__img"
+          [src]="fullscreenImageSrc()!"
+          [alt]="title() || 'Visualização da tela do projeto'"
+          [title]="title() || 'Visualização da tela do projeto'"
+        />
+        <button
+          type="button"
+          class="image-lightbox__close"
+          (click)="closeFullscreen()"
+        >
+          ✕
+        </button>
+      </div>
+    </div>
+  }
+</div>
+

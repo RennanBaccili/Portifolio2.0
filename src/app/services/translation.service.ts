@@ -87,6 +87,24 @@ export interface Translations {
       ai: string;
     };
   };
+  // Projects Section
+  projects: {
+    title: string;
+    viewProject: string;
+    lifeplus: {
+      name: string;
+      shortDescription: string;
+    };
+  };
+  // Project Detail (LifePlus)
+  projectDetail: {
+    backToProjects: string;
+    lifeplus: {
+      title: string;
+      subtitle: string;
+      slides: Array<{ title: string; content: string }>;
+    };
+  };
   // Contact Section
   contact: {
     title: string;
@@ -192,6 +210,34 @@ const translations: Record<Language, Translations> = {
         ai: 'Inteligência Artificial'
       }
     },
+    projects: {
+      title: 'Projetos',
+      viewProject: 'Ver projeto',
+      lifeplus: {
+        name: 'LifePlus',
+        shortDescription: 'Sistema de gestão médica com teleconsultação — microserviços em Spring Boot e Vaadin.'
+      }
+    },
+    projectDetail: {
+      backToProjects: 'Voltar aos projetos',
+      lifeplus: {
+        title: 'LifePlus',
+        subtitle: 'Sistema de Gestão Médica com Teleconsultação — arquitetura de microserviços em Spring Boot e Vaadin',
+        slides: [
+          { title: 'Título', content: 'LifePlus – Sistema de Gestão Médica com Teleconsultação. Arquitetura de microserviços em Spring Boot e Vaadin.' },
+          { title: 'O que é o LifePlus', content: 'Plataforma para gestão de consultas, agendamentos e teleconsultação (WebRTC). Público: médicos, pacientes e administradores. Stack: Java 21, Spring Boot 3.x, Vaadin 24, WebRTC, RabbitMQ, OAuth2/JWT.' },
+          { title: 'Microserviços (visão geral)', content: 'Gateway (8080) — ponto único de entrada, roteamento e validação JWT. OAuth2 Authorization Server (8090) — emissão de tokens JWT. LifePlus (8082) — UI Vaadin: agenda, prontuários, teleconsulta. Chat (8085) — tempo real via WebSocket/STOMP. Notification API (8083) — notificações e consumer RabbitMQ. Spring Boot Admin (8081) — monitoramento.' },
+          { title: 'Fluxo do Gateway', content: 'Cliente acessa pela porta 8080. Rotas: /oauth/** → OAuth2; /notification/** → Notification API; /app/** e / → LifePlus Vaadin. Gateway valida JWT antes de encaminhar.' },
+          { title: 'Segurança (OAuth2 + JWT)', content: 'Authorization Server com OAuth2 Client Credentials (RFC 6749) para comunicação machine-to-machine. LifePlus obtém token no Gateway e usa Bearer em chamadas à Notification API.' },
+          { title: 'Notificações (RabbitMQ)', content: 'LifePlus publica na fila notification-queue. Notification API consome com @RabbitListener e persiste no H2. Fila notification-ui-update-queue para atualizações na UI. Padrão Producer/Consumer com JSON.' },
+          { title: 'Chat em tempo real', content: 'Microserviço Chat (8085): WebSocket/STOMP, JPA (Chat, Message), REST para conversas e mensagens. LifePlus conecta via WebSocket para enviar/receber mensagens (ex.: durante teleconsulta).' },
+          { title: 'Domínio médico', content: 'Entidades: User, Person, Doctor, Patient, Appointment, MedicalRecord, LifestyleHabits, FamilyHistory, Diagnosis, Exam. Prontuário eletrônico, hábitos de vida, histórico familiar e suporte a paciente externo.' },
+          { title: 'Funcionalidades', content: 'Gestão de usuários, agenda (FullCalendar), consultas e pacientes, teleconsultação (WebRTC + React), chat integrado, prontuários e notificações via API com OAuth2, listagem de médicos e perfil.' },
+          { title: 'Padrões e tecnologias', content: 'API Gateway, OAuth2 Client Credentials, mensageria assíncrona (RabbitMQ), comunicação em tempo real (WebSocket/STOMP), arquitetura em camadas. Vaadin Flow, H2 em dev (PostgreSQL em produção).' },
+          { title: 'Conclusão', content: 'Sistema médico modular, com segurança centralizada, notificações assíncronas e chat em tempo real, pronto para evoluir com novos serviços e escalar componentes.' }
+        ]
+      }
+    },
     contact: {
       title: 'Vamos Conversar?',
       description: 'Estou sempre aberto a discutir novos projetos, oportunidades de colaboração ou apenas trocar ideias sobre tecnologia e desenvolvimento de software.',
@@ -292,6 +338,34 @@ const translations: Record<Language, Translations> = {
         databases: 'Databases',
         cloud: 'Cloud & DevOps',
         ai: 'Artificial Intelligence'
+      }
+    },
+    projects: {
+      title: 'Projects',
+      viewProject: 'View project',
+      lifeplus: {
+        name: 'LifePlus',
+        shortDescription: 'Medical management system with teleconsultation — microservices in Spring Boot and Vaadin.'
+      }
+    },
+    projectDetail: {
+      backToProjects: 'Back to projects',
+      lifeplus: {
+        title: 'LifePlus',
+        subtitle: 'Medical Management System with Teleconsultation — microservices architecture in Spring Boot and Vaadin',
+        slides: [
+          { title: 'Title', content: 'LifePlus – Medical Management System with Teleconsultation. Microservices architecture in Spring Boot and Vaadin.' },
+          { title: 'What is LifePlus', content: 'Platform for managing appointments, scheduling and teleconsultation (WebRTC). Audience: doctors, patients and administrators. Stack: Java 21, Spring Boot 3.x, Vaadin 24, WebRTC, RabbitMQ, OAuth2/JWT.' },
+          { title: 'Microservices (overview)', content: 'Gateway (8080) — single entry point, routing and JWT validation. OAuth2 Authorization Server (8090) — JWT token issuance. LifePlus (8082) — Vaadin UI: calendar, records, teleconsultation. Chat (8085) — real-time via WebSocket/STOMP. Notification API (8083) — notifications and RabbitMQ consumer. Spring Boot Admin (8081) — monitoring.' },
+          { title: 'Gateway flow', content: 'Client accesses via port 8080. Routes: /oauth/** → OAuth2; /notification/** → Notification API; /app/** and / → LifePlus Vaadin. Gateway validates JWT before forwarding.' },
+          { title: 'Security (OAuth2 + JWT)', content: 'Authorization Server with OAuth2 Client Credentials (RFC 6749) for machine-to-machine communication. LifePlus obtains token at Gateway and uses Bearer when calling Notification API.' },
+          { title: 'Notifications (RabbitMQ)', content: 'LifePlus publishes to notification-queue. Notification API consumes with @RabbitListener and persists to H2. notification-ui-update-queue for UI updates. Producer/Consumer pattern with JSON.' },
+          { title: 'Real-time chat', content: 'Chat microservice (8085): WebSocket/STOMP, JPA (Chat, Message), REST for conversations and messages. LifePlus connects via WebSocket to send/receive messages (e.g. during teleconsultation).' },
+          { title: 'Medical domain', content: 'Entities: User, Person, Doctor, Patient, Appointment, MedicalRecord, LifestyleHabits, FamilyHistory, Diagnosis, Exam. Electronic records, lifestyle habits, family history and external patient support.' },
+          { title: 'Features', content: 'User management, calendar (FullCalendar), appointments and patients, teleconsultation (WebRTC + React), integrated chat, records and notifications via API with OAuth2, doctor listing and profile.' },
+          { title: 'Patterns and technologies', content: 'API Gateway, OAuth2 Client Credentials, async messaging (RabbitMQ), real-time (WebSocket/STOMP), layered architecture. Vaadin Flow, H2 in dev (PostgreSQL in production).' },
+          { title: 'Conclusion', content: 'Modular medical system with centralized security, async notifications and real-time chat, ready to grow with new services and scale components.' }
+        ]
       }
     },
     contact: {

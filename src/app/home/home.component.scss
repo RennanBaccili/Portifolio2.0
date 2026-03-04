@@ -266,6 +266,57 @@
 }
 
 // ============================================
+// PROJECTS SECTION
+// ============================================
+.projects-section {
+  background: var(--bg-dark);
+  transition: background-color 0.3s ease;
+}
+
+.projects-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.carousel-nav {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all $transition-normal;
+
+  &:hover {
+    border-color: var(--primary-color);
+    background: var(--primary-color);
+  }
+}
+
+.projects-carousel {
+  flex: 1;
+  display: flex;
+  gap: $spacing-lg;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  padding: $spacing-sm 0;
+
+  &::-webkit-scrollbar {
+    height: 6px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+  }
+}
+
+// ============================================
 // CONTACT SECTION
 // ============================================
 .contact-section {

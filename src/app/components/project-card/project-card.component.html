@@ -1,0 +1,14 @@
+@if (routerLink) {
+  <a [routerLink]="routerLink" class="project-card project-card--link">
+    <div class="project-card__icon">{{ icon }}</div>
+    <h3 class="project-card__title">{{ title }}</h3>
+    <p class="project-card__description">{{ description }}</p>
+    <span class="project-card__cta">{{ viewProjectLabel }}</span>
+  </a>
+} @else {
+  <div class="project-card">
+    <div class="project-card__icon">{{ icon }}</div>
+    <h3 class="project-card__title">{{ title }}</h3>
+    <p class="project-card__description">{{ description }}</p>
+  </div>
+}

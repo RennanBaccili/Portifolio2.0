@@ -190,6 +190,30 @@
     </div>
   </section>
 
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section">
+    <div class="section-container">
+      <h2 class="section-title">{{ t().projects.title }}</h2>
+      <div class="projects-carousel-wrapper">
+        <button type="button" class="carousel-nav carousel-nav--prev" (click)="scrollProjects(-1)" aria-label="Anterior">
+          ‹
+        </button>
+        <div class="projects-carousel" #projectsCarousel>
+          <app-project-card
+            [title]="t().projects.lifeplus.name"
+            [description]="t().projects.lifeplus.shortDescription"
+            routerLink="/projects/lifeplus"
+            [viewProjectLabel]="t().projects.viewProject"
+            icon="🏥">
+          </app-project-card>
+        </div>
+        <button type="button" class="carousel-nav carousel-nav--next" (click)="scrollProjects(1)" aria-label="Próximo">
+          ›
+        </button>
+      </div>
+    </div>
+  </section>
+
   <!-- Contact Section -->
   <section class="contact-section">
     <div class="section-container">

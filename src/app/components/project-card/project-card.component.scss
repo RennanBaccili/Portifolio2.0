@@ -1,0 +1,54 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+
+.project-card {
+  @include card-style;
+  flex-shrink: 0;
+  width: 320px;
+  min-height: 220px;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+
+  &:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+  }
+
+  &--link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-5px);
+    }
+  }
+}
+
+.project-card__icon {
+  font-size: 2rem;
+  margin-bottom: $spacing-sm;
+}
+
+.project-card__title {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.project-card__description {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.project-card__cta {
+  display: inline-block;
+  margin-top: $spacing-md;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--primary-light);
+}
