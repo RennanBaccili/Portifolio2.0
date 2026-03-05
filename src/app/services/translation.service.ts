@@ -99,6 +99,12 @@ export interface Translations {
   // Project Detail (LifePlus)
   projectDetail: {
     backToProjects: string;
+    overviewAndArchitecture: string;
+    functionalFlowAndScreens: string;
+    flowIntro: string;
+    flowHint: string;
+    projectNotFound: string;
+    imageViewAlt: string;
     lifeplus: {
       title: string;
       subtitle: string;
@@ -220,6 +226,12 @@ const translations: Record<Language, Translations> = {
     },
     projectDetail: {
       backToProjects: 'Voltar aos projetos',
+      overviewAndArchitecture: 'Visão geral e arquitetura',
+      functionalFlowAndScreens: 'Fluxo funcional e principais telas',
+      flowIntro: 'As telas a seguir mostram como o LifePlus é usado no dia a dia, desde o login até a teleconsulta e o registro completo do prontuário médico.',
+      flowHint: 'Role a página para ir avançando pelas telas do fluxo.',
+      projectNotFound: 'Projeto não encontrado.',
+      imageViewAlt: 'Visualização da tela do projeto',
       lifeplus: {
         title: 'LifePlus',
         subtitle: 'Sistema de Gestão Médica com Teleconsultação — arquitetura de microserviços em Spring Boot e Vaadin',
@@ -350,6 +362,12 @@ const translations: Record<Language, Translations> = {
     },
     projectDetail: {
       backToProjects: 'Back to projects',
+      overviewAndArchitecture: 'Overview and architecture',
+      functionalFlowAndScreens: 'Functional flow and main screens',
+      flowIntro: 'The following screens show how LifePlus is used day to day, from login to teleconsultation and full medical record entry.',
+      flowHint: 'Scroll the page to move through the flow screens.',
+      projectNotFound: 'Project not found.',
+      imageViewAlt: 'Project screen view',
       lifeplus: {
         title: 'LifePlus',
         subtitle: 'Medical Management System with Teleconsultation — microservices architecture in Spring Boot and Vaadin',

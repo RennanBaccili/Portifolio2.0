@@ -18,7 +18,7 @@
       </header>
 
       <section class="project-section project-section--architecture">
-        <h2 class="project-section__title">Visão geral e arquitetura</h2>
+        <h2 class="project-section__title">{{ t().projectDetail.overviewAndArchitecture }}</h2>
 
         @if (architectureSections().length > 0) {
           <div class="project-section__body">
@@ -35,17 +35,17 @@
       </section>
 
       <section class="project-section project-section--ui">
-        <h2 class="project-section__title">Fluxo funcional e principais telas</h2>
+        <h2 class="project-section__title">{{ t().projectDetail.functionalFlowAndScreens }}</h2>
 
         <p class="project-section__intro">
-          As telas a seguir mostram como o LifePlus é usado no dia a dia, desde o login até a teleconsulta e o registro completo do prontuário médico.
+          {{ t().projectDetail.flowIntro }}
         </p>
 
         <div class="project-flow">
           <div class="project-flow__hint">
             <span class="project-flow__hint-dot"></span>
             <span class="project-flow__hint-text">
-              Role a página para ir avançando pelas telas do fluxo.
+              {{ t().projectDetail.flowHint }}
             </span>
           </div>
 
@@ -61,8 +61,8 @@
                       <img
                         class="project-flow__image-img"
                         [src]="section.imageSrc"
-                        [alt]="section.name + ' - LifePlus'"
-                        [title]="section.name + ' - LifePlus'"
+                        [alt]="section.name + ' - ' + title()"
+                        [title]="section.name + ' - ' + title()"
                         loading="lazy"
                         (click)="openImageFullscreen(section.imageSrc!)"
                       />
@@ -88,7 +88,7 @@
         </div>
       </section>
     } @else {
-      <p class="project-detail__not-found">Projeto não encontrado.</p>
+      <p class="project-detail__not-found">{{ t().projectDetail.projectNotFound }}</p>
     }
   </div>
   @if (fullscreenImageSrc()) {
@@ -98,8 +98,8 @@
         <img
           class="image-lightbox__img"
           [src]="fullscreenImageSrc()!"
-          [alt]="title() || 'Visualização da tela do projeto'"
-          [title]="title() || 'Visualização da tela do projeto'"
+          [alt]="title() || t().projectDetail.imageViewAlt"
+          [title]="title() || t().projectDetail.imageViewAlt"
         />
         <button
           type="button"

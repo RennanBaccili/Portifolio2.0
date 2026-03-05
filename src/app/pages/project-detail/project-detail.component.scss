@@ -3,10 +3,10 @@
 
 .project-detail {
   min-height: 100vh;
-  background: var(--bg-darker);
   color: var(--text-primary);
   padding: $spacing-2xl $spacing-lg;
   position: relative;
+  background: var(--bg-detail);
 }
 
 .project-detail__top-bar {
@@ -52,6 +52,7 @@
   font-weight: 700;
   margin-bottom: $spacing-sm;
   @include gradient-text;
+  margin-top: 30px;
 }
 
 .project-detail__subtitle {
@@ -101,6 +102,7 @@
   font-size: 0.9375rem;
   color: var(--text-secondary);
   line-height: 1.7;
+  padding-left: 20px;
 }
 
 // Architecture section as a single cohesive document-style block
@@ -135,6 +137,8 @@
 
   .project-article__content {
     max-width: 60rem;
+    margin-left: 10px;
+    margin-top: 20px;
   }
 }
 
@@ -312,6 +316,7 @@
   }
 
   .project-flow__image-frame {
+    height: 100%;
     aspect-ratio: 4 / 3;
   }
 }
@@ -376,4 +381,10 @@
   background: var(--primary-color);
   border-color: var(--primary-color);
   transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .project-flow__image-img {
+    height: 100%;
+  }
 }

@@ -351,6 +351,7 @@
   }
 
   .hero-visual {
+    margin-top: 60px;
     order: -1;
   }
 
@@ -383,10 +384,5 @@
   .hero-buttons,
   .contact-buttons {
     flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-    text-align: center;
   }
 }

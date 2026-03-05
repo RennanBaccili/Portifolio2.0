@@ -77,3 +77,12 @@ html {
     transform: translateY(-2px);
   }
 }
+
+// Botões em telas pequenas (global – afeta app-button e qualquer .btn)
+@media (max-width: 640px) {
+  .btn {
+    padding: 10px 10px;
+    width: 100%;
+    text-align: center;
+  }
+}

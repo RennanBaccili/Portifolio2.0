@@ -52,3 +52,9 @@
   font-weight: 600;
   color: var(--primary-light);
 }
+
+@media (max-width: 640px) {
+  .project-card {
+    width: 100%;
+  }
+}

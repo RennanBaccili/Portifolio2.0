@@ -616,6 +616,7 @@
   }
 
   .hero-visual {
+    margin-top: 50px;
     order: -1;
   }
 
@@ -659,6 +660,7 @@
   }
 
   .btn {
+    padding: 10px 10px;
     width: 100%;
     text-align: center;
   }

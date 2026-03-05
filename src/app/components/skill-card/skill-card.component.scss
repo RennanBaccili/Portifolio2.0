@@ -48,3 +48,9 @@
     transform: translateY(-2px);
   }
 }
+
+@media (max-width: 640px) {
+  .skill-category {
+     height: 100%;
+  }
+}
