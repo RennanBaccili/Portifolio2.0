@@ -56,24 +56,7 @@ export const LIFEPLUS: ProjectDefinition = {
             'O modelo cobre User, Person, Doctor, Patient, Appointment, MedicalRecord, LifestyleHabits, FamilyHistory, Diagnosis e Exam. Isso sustenta prontuário eletrônico, hábitos de vida, histórico familiar e atendimento a paciente externo, com Person separado de User para que uma pessoa exista no domínio sem precisar de credencial de acesso.'
         }
       ],
-      diagrams: [
-        {
-          id: 'lifeplus-architecture',
-          src: '/diagrams/lifeplus-architecture',
-          title: 'Arquitetura de microsserviços',
-          caption:
-            'Os seis serviços, o Gateway como ponto único de entrada, as filas do RabbitMQ e o banco compartilhado. As setas pontilhadas são coleta de métricas pelo Spring Boot Admin.',
-          kind: 'component'
-        },
-        {
-          id: 'lifeplus-teleconsultation-flow',
-          src: '/diagrams/lifeplus-teleconsultation-flow',
-          title: 'Fluxo da teleconsulta',
-          caption:
-            'Do login ao badge de notificação: emissão de JWT, consulta da agenda, abertura da sala WebRTC com o canal de chat e a volta assíncrona pela fila após o registro do prontuário.',
-          kind: 'sequence'
-        }
-      ],
+      diagrams: [],
       flows: [
         {
           title: 'Autenticação e entrada',
@@ -123,33 +106,7 @@ export const LIFEPLUS: ProjectDefinition = {
           }
         ]
       },
-      decisions: [
-        {
-          title: 'Gateway como ponto único de entrada',
-          content:
-            'Concentra roteamento, TLS e validação de JWT em um lugar. O custo é um ponto adicional no caminho de rede e um serviço a mais para manter disponível; o ganho é não replicar filtro de segurança em cinco serviços.'
-        },
-        {
-          title: 'Client Credentials para tráfego interno',
-          content:
-            'Comunicação entre serviços usa OAuth2 Client Credentials em vez de repassar o token do usuário. Isso separa identidade de usuário de identidade de serviço e evita que um serviço herde permissões que não deveria ter.'
-        },
-        {
-          title: 'Mensageria em vez de chamada síncrona',
-          content:
-            'Notificação é efeito colateral, não parte da transação clínica. Publicar em fila mantém o tempo de resposta do registro do prontuário previsível e torna a indisponibilidade da Notification API um atraso, não uma falha.'
-        },
-        {
-          title: 'Vaadin Flow para a UI',
-          content:
-            'Vaadin mantém a UI em Java, no mesmo modelo mental do backend, o que reduz troca de contexto em um sistema com forte lógica de domínio. O trade-off é mais estado no servidor e menos liberdade de front — aceitável para uma aplicação interna de gestão, e por isso a teleconsulta usa React e WebRTC onde a interatividade exige.'
-        },
-        {
-          title: 'H2 em desenvolvimento, PostgreSQL em produção',
-          content:
-            'Ambiente local sobe sem dependência externa, enquanto produção usa um banco com garantias reais. O risco é divergência de comportamento entre os dois, mitigado por manter o mapeamento JPA como contrato.'
-        }
-      ],
+      decisions: [],
       challenges: [
         {
           title: 'Uma sessão, três canais simultâneos',
@@ -289,24 +246,7 @@ export const LIFEPLUS: ProjectDefinition = {
             'The model covers User, Person, Doctor, Patient, Appointment, MedicalRecord, LifestyleHabits, FamilyHistory, Diagnosis and Exam. This supports electronic records, lifestyle habits, family history and external patient care, with Person kept separate from User so a person can exist in the domain without needing login credentials.'
         }
       ],
-      diagrams: [
-        {
-          id: 'lifeplus-architecture',
-          src: '/diagrams/lifeplus-architecture',
-          title: 'Microservices architecture',
-          caption:
-            'The six services, the Gateway as single entry point, the RabbitMQ queues and the shared database. Dotted arrows are metrics collection by Spring Boot Admin.',
-          kind: 'component'
-        },
-        {
-          id: 'lifeplus-teleconsultation-flow',
-          src: '/diagrams/lifeplus-teleconsultation-flow',
-          title: 'Teleconsultation flow',
-          caption:
-            'From login to the notification badge: JWT issuance, appointment lookup, opening the WebRTC room with its chat channel, and the asynchronous round trip through the queue after the record is saved.',
-          kind: 'sequence'
-        }
-      ],
+      diagrams: [],
       flows: [
         {
           title: 'Authentication and entry',
@@ -356,33 +296,7 @@ export const LIFEPLUS: ProjectDefinition = {
           }
         ]
       },
-      decisions: [
-        {
-          title: 'Gateway as single entry point',
-          content:
-            'Concentrates routing, TLS and JWT validation in one place. The cost is an extra hop on the network path and one more service to keep available; the gain is not replicating a security filter across five services.'
-        },
-        {
-          title: 'Client Credentials for internal traffic',
-          content:
-            'Service-to-service communication uses OAuth2 Client Credentials rather than forwarding the user token. This separates user identity from service identity and prevents a service inheriting permissions it should not hold.'
-        },
-        {
-          title: 'Messaging instead of synchronous calls',
-          content:
-            'Notification is a side effect, not part of the clinical transaction. Publishing to a queue keeps the response time of saving a record predictable and turns Notification API downtime into a delay rather than a failure.'
-        },
-        {
-          title: 'Vaadin Flow for the UI',
-          content:
-            'Vaadin keeps the UI in Java, in the same mental model as the backend, which reduces context switching in a system with heavy domain logic. The trade-off is more server-side state and less front-end freedom — acceptable for an internal management application, which is why teleconsultation uses React and WebRTC where interactivity demands it.'
-        },
-        {
-          title: 'H2 in development, PostgreSQL in production',
-          content:
-            'The local environment starts with no external dependency, while production runs on a database with real guarantees. The risk is behavioural divergence between the two, mitigated by keeping the JPA mapping as the contract.'
-        }
-      ],
+      decisions: [],
       challenges: [
         {
           title: 'One session, three simultaneous channels',

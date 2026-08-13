@@ -61,24 +61,7 @@ export const VIGILIA: ProjectDefinition = {
             'A regra de não usar HTTP em loopback vale entre módulos. Entre serviços existe uma exceção estreita: a classificação de entidade que bloqueia o operador na criação de um assunto roda por chamada síncrona autenticada por HMAC, com rate limit, orçamento de latência declarado e acesso somente leitura ao estado compartilhado. O motivo é concreto — duplicar os modelos de NLP no processo Node custaria perto de um gigabyte.'
         }
       ],
-      diagrams: [
-        {
-          id: 'vigilia-architecture',
-          src: '/diagrams/vigilia-architecture',
-          title: 'Arquitetura do sistema',
-          caption:
-            'Os dois pools de processo, os modelos locais dentro do worker e os dois pontos onde o LLM entra. Note a nota sobre os modelos locais: o dado sensível do operador não pode deixar o processo, e isso determinou a arquitetura de embeddings.',
-          kind: 'component'
-        },
-        {
-          id: 'vigilia-narrative-pipeline',
-          src: '/diagrams/vigilia-narrative-pipeline',
-          title: 'Do comentário à narrativa nomeada',
-          caption:
-            'A esteira de IA híbrida. Todo o trabalho pesado — sentimento, entidades, vetores de significado, agrupamento — roda localmente. O LLM entra apenas no fim, para nomear um grupo já formado, e sob teto de custo.',
-          kind: 'sequence'
-        }
-      ],
+      diagrams: [],
       flows: [
         {
           title: 'Da coleta do comentário à narrativa nomeada',
@@ -158,33 +141,7 @@ export const VIGILIA: ProjectDefinition = {
           }
         ]
       },
-      decisions: [
-        {
-          title: 'Provedor único de LLM, reforçado em três camadas',
-          content:
-            'Expandir para múltiplos provedores exigiria mudar o escopo de compliance. A interface de cliente existe para permitir troca futura, mas o ADR diz explicitamente para não usá-la para introduzir alternativas silenciosamente. A regra é reforçada por gate de CI, por uma allowlist de egresso que recusa qualquer host fora da lista na camada de rede, e por revisão.'
-        },
-        {
-          title: 'Fórmula auditável em vez de ranker aprendido',
-          content:
-            'Soma ponderada transparente com A/B por coorte de assunto, nunca por operador. O trade-off assumido é abrir mão de ganho de relevância por aprendizado, em troca de poder explicar por que um item ficou onde ficou — que é exatamente o que uma auditoria de conformidade pergunta.'
-        },
-        {
-          title: 'Dois sinais geográficos que nunca se fundem',
-          content:
-            'A região do veículo e a região inferida do texto são mantidas separadas. Fundir os dois num campo só produziria um número que parece preciso e não é. Abaixo do limiar de confiança, nada é emitido — o pipeline não chuta.'
-        },
-        {
-          title: 'Terraform completo e dormente',
-          content:
-            'A stack AWS está escrita, fatorada e pronta em dezesseis arquivos, com WAF, KMS, log group de auditoria protegido contra destruição e deploy por OIDC sem chave de longa duração. O cut-over foi deliberadamente adiado e o produto roda em três máquinas Fly.io. A decisão está registrada com o gatilho que a reabre.'
-        },
-        {
-          title: 'Feature flags como variável de ambiente revisável',
-          content:
-            'O comentário no arquivo de configuração diz o motivo: valor que só existe no CLI é valor que ninguém revisa — foi exatamente assim que a coleta de tendências ficou meses desligada sem ninguém notar.'
-        }
-      ],
+      decisions: [],
       challenges: [
         {
           title: 'Um modelo de dados que estava mentindo',
@@ -273,24 +230,7 @@ export const VIGILIA: ProjectDefinition = {
             'The no-loopback-HTTP rule holds between modules. Between services there is a narrow exception: the entity classification that blocks the operator when creating a subject runs as a synchronous call authenticated by HMAC, with rate limiting, a declared latency budget and read-only access to shared state. The reason is concrete — duplicating the NLP models in the Node process would cost close to a gigabyte.'
         }
       ],
-      diagrams: [
-        {
-          id: 'vigilia-architecture',
-          src: '/diagrams/vigilia-architecture',
-          title: 'System architecture',
-          caption:
-            'The two process pools, the local models inside the worker and the two places the LLM enters. Note the local-models annotation: sensitive operator data cannot leave the process, and that determined the embedding architecture.',
-          kind: 'component'
-        },
-        {
-          id: 'vigilia-narrative-pipeline',
-          src: '/diagrams/vigilia-narrative-pipeline',
-          title: 'From comment to named narrative',
-          caption:
-            'The hybrid AI pipeline. All the heavy work — sentiment, entities, meaning vectors, clustering — runs locally. The LLM only enters at the end, to name an already-formed group, and under a cost cap.',
-          kind: 'sequence'
-        }
-      ],
+      diagrams: [],
       flows: [
         {
           title: 'From collected comment to named narrative',
@@ -370,33 +310,7 @@ export const VIGILIA: ProjectDefinition = {
           }
         ]
       },
-      decisions: [
-        {
-          title: 'A single LLM provider, enforced in three layers',
-          content:
-            'Expanding to multiple providers would change the compliance scope. A client interface exists to allow a future swap, but the ADR explicitly says not to use it to introduce alternatives quietly. The rule is enforced by a CI gate, by an egress allowlist that refuses any host outside the list at the network layer, and by review.'
-        },
-        {
-          title: 'An auditable formula instead of a learned ranker',
-          content:
-            'A transparent weighted sum with A/B testing by subject cohort, never by operator. The accepted trade-off is giving up relevance gains from learning, in exchange for being able to explain why an item ranked where it did — which is exactly what a compliance audit asks.'
-        },
-        {
-          title: 'Two geographic signals that never merge',
-          content:
-            'The outlet region and the region inferred from text are kept separate. Merging them into one field would produce a number that looks precise and is not. Below the confidence threshold nothing is emitted — the pipeline does not guess.'
-        },
-        {
-          title: 'Terraform complete and dormant',
-          content:
-            'The AWS stack is written, well factored and ready across sixteen files, with WAF, KMS, an audit log group protected against destruction and OIDC deploys with no long-lived key. Cut-over was deliberately deferred and the product runs on three Fly.io machines. The decision is recorded with the trigger that reopens it.'
-        },
-        {
-          title: 'Feature flags as reviewable environment configuration',
-          content:
-            'The comment in the configuration file states the reason: a value that exists only in the CLI is a value nobody reviews — that is exactly how trend collection sat switched off for months without anyone noticing.'
-        }
-      ],
+      decisions: [],
       challenges: [
         {
           title: 'A data model that was lying',

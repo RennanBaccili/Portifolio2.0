@@ -60,24 +60,7 @@ export const TRENDERTOK: ProjectDefinition = {
             'O estado de cada job vive em tabela com detalhe legível por humano, não em dicionário de processo. É isso que permite ao painel reconstruir visibilidade quase em tempo real de um pipeline assíncrono que não emite eventos — e é isso que sobrevive a um restart.'
         }
       ],
-      diagrams: [
-        {
-          id: 'trendertok-architecture',
-          src: '/diagrams/trendertok-architecture',
-          title: 'Arquitetura do sistema',
-          caption:
-            'Os dois deployáveis, os três pipelines de geração e os provedores externos. Note a posição do gate de segurança de conteúdo: antes das chamadas pagas, não depois — ele é também um guardrail de custo.',
-          kind: 'component'
-        },
-        {
-          id: 'trendertok-generation-flow',
-          src: '/diagrams/trendertok-generation-flow',
-          title: 'Ciclo de geração e publicação',
-          caption:
-            'Da detecção de tendência à publicação. O detalhe crítico está no meio: a seção de claim serializado que reserva a linha no banco e libera o lock antes de qualquer chamada lenta de LLM ou ffmpeg.',
-          kind: 'sequence'
-        }
-      ],
+      diagrams: [],
       flows: [
         {
           title: 'Detecção de tendências com scoring determinístico',
@@ -142,33 +125,7 @@ export const TRENDERTOK: ProjectDefinition = {
           }
         ]
       },
-      decisions: [
-        {
-          title: 'Monólito de processo único como premissa explícita',
-          content:
-            'Como o agendador roda no mesmo processo da API, um lock em nível de módulo é suficiente para serializar a reserva de trabalho. A decisão está registrada junto do gatilho de revisão: se a aplicação for dividida em processos, isso precisa virar lock em nível de linha no banco.'
-        },
-        {
-          title: 'Claim-then-work na seção crítica',
-          content:
-            'A reserva insere uma linha placeholder dentro do lock e sai; o trabalho caro acontece fora. O comentário no código documenta duas abordagens anteriores e por que falharam — incluindo a que segurava o lock do SQLite através de chamadas de LLM e ffmpeg e cascateava erro de banco travado pela aplicação inteira.'
-        },
-        {
-          title: 'Provedor de IA como configuração, não constante',
-          content:
-            'A alternativa "substituir Claude por OpenAI" foi explicitamente rejeitada: jogaria fora um caminho que funciona e removeria o fallback. A escolha foi aditiva e reversível — defaults permanecem, o provedor alternativo é opt-in, e sem a chave configurada tudo degrada sozinho.'
-        },
-        {
-          title: 'Tipo de mídia explícito em vez de inferido',
-          content:
-            'Inferir vídeo ou imagem a partir do canal funciona até o modo avatar colocar vídeo no LinkedIn. O campo virou explícito, e a refatoração dos pontos de inferência foi feita antes de adicionar os novos modos, com saída idêntica e nenhuma mudança visual — refatoração comportamentalmente neutra primeiro.'
-        },
-        {
-          title: 'Migração expand-contract nos contratos',
-          content:
-            'Campos novos entram como opcionais com semântica de default documentada — ausente significa o modo antigo. O frontend novo funciona com o backend antigo durante a janela de deploy, e o campo deprecado permanece no schema e na resposta enquanto houver consumidor.'
-        }
-      ],
+      decisions: [],
       challenges: [
         {
           title: 'Observar um pipeline assíncrono que não emite eventos',
@@ -271,24 +228,7 @@ export const TRENDERTOK: ProjectDefinition = {
             'Each job state lives in a table with a human-readable detail field, not in a process dictionary. That is what lets the dashboard reconstruct near real-time visibility of an asynchronous pipeline that emits no events — and it is what survives a restart.'
         }
       ],
-      diagrams: [
-        {
-          id: 'trendertok-architecture',
-          src: '/diagrams/trendertok-architecture',
-          title: 'System architecture',
-          caption:
-            'The two deployables, the three generation pipelines and the external providers. Note where the content safety gate sits: before the paid calls, not after — it doubles as a cost guardrail.',
-          kind: 'component'
-        },
-        {
-          id: 'trendertok-generation-flow',
-          src: '/diagrams/trendertok-generation-flow',
-          title: 'Generation and publishing cycle',
-          caption:
-            'From trend detection to publication. The critical detail is in the middle: the serialized claim section that reserves the database row and releases the lock before any slow LLM or ffmpeg call.',
-          kind: 'sequence'
-        }
-      ],
+      diagrams: [],
       flows: [
         {
           title: 'Trend detection with deterministic scoring',
@@ -353,33 +293,7 @@ export const TRENDERTOK: ProjectDefinition = {
           }
         ]
       },
-      decisions: [
-        {
-          title: 'Single-process monolith as an explicit premise',
-          content:
-            'Because the scheduler runs in the same process as the API, a module-level lock is enough to serialize work claims. The decision is recorded alongside its review trigger: if the application is ever split across processes, this must become a row-level database lock.'
-        },
-        {
-          title: 'Claim-then-work in the critical section',
-          content:
-            'The claim inserts a placeholder row inside the lock and exits; expensive work happens outside. The code comment documents two earlier approaches and why they failed — including the one that held the SQLite lock across LLM and ffmpeg calls and cascaded database-locked errors across the whole application.'
-        },
-        {
-          title: 'AI provider as configuration, not a constant',
-          content:
-            'The alternative of replacing Claude with OpenAI was explicitly rejected: it would throw away a working path and remove the fallback. The choice was additive and reversible — defaults stay, the alternative provider is opt-in, and without the key configured everything degrades on its own.'
-        },
-        {
-          title: 'Explicit media type instead of inferred',
-          content:
-            'Inferring video or image from the channel works until avatar mode puts video on LinkedIn. The field became explicit, and refactoring the inference sites happened before adding the new modes, with identical output and no visual change — behaviourally neutral refactoring first.'
-        },
-        {
-          title: 'Expand-contract migration on contracts',
-          content:
-            'New fields arrive as optional with documented default semantics — absent means the old mode. The new frontend works against the old backend during the deploy window, and the deprecated field stays in the schema and the response while a consumer still reads it.'
-        }
-      ],
+      decisions: [],
       challenges: [
         {
           title: 'Observing an asynchronous pipeline that emits no events',

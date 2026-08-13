@@ -60,24 +60,7 @@ export const REDE_BRASIL: ProjectDefinition = {
             'O produto opera sob LGPD, Lei Anticorrupção e resoluções do TSE/ANPD. Os campos sensíveis do Art. 11 não têm coluna no schema Prisma — a proibição é ausência estrutural, não permissão negada. A mesma regra é defendida em cinco camadas independentes: o importador rejeita, o refinement Zod rejeita, o serviço de contatos rejeita, a ingestão do RAG rejeita, e o system prompt do LLM proíbe.'
         }
       ],
-      diagrams: [
-        {
-          id: 'redebrasil-architecture',
-          src: '/diagrams/redebrasil-architecture',
-          title: 'Arquitetura e fronteira de integração',
-          caption:
-            'O monorepo, o gateway externo que media toda saída, e os dois roles distintos do Postgres. Destaque para o ponto onde o mascaramento de dados sensíveis acontece: antes de qualquer prompt deixar o perímetro.',
-          kind: 'component'
-        },
-        {
-          id: 'redebrasil-dossier-stream',
-          src: '/diagrams/redebrasil-dossier-stream',
-          title: 'Geração de dossiê com streaming SSE',
-          caption:
-            'O fluxo-assinatura do produto. Note a ordem: o budget gate roda antes de abrir o stream, as etapas de pesquisa emitem apenas rótulo e contagem, e a persistência acontece uma única vez, no evento de conclusão bem-sucedida.',
-          kind: 'sequence'
-        }
-      ],
+      diagrams: [],
       flows: [
         {
           title: 'Dossiê de agente público com streaming ao vivo',
@@ -137,33 +120,7 @@ export const REDE_BRASIL: ProjectDefinition = {
           }
         ]
       },
-      decisions: [
-        {
-          title: 'CTE recursiva em vez de banco de grafos',
-          content:
-            'Neo4j e Apache AGE foram avaliados e rejeitados. A CTE recursiva no Postgres entrega o path-finding necessário sem adicionar um sistema de banco à stack. O custo é consulta mais complexa e um teto de performance mais baixo; o ganho é uma dependência a menos para operar e um único lugar onde os dados vivem.'
-        },
-        {
-          title: 'WORM por privilégio, não por convenção',
-          content:
-            'A imutabilidade do audit log poderia ser garantida por disciplina de código. Foi garantida por REVOKE no banco, com role dedicado que só tem INSERT. A diferença aparece exatamente no cenário que importa: comprometimento da aplicação.'
-        },
-        {
-          title: 'pgvector decidido, BM25 em produção',
-          content:
-            'A decisão de usar pgvector na mesma instância — em vez de Pinecone, Weaviate ou Qdrant — já está registrada, com abstração de repositório preservando o caminho de migração. Enquanto o endpoint de embeddings não existe no gateway, o retrieval degrada para BM25 com tsvector em português. Consumidor degrada, contrato permanece.'
-        },
-        {
-          title: 'SSE em endpoint dedicado',
-          content:
-            'WebSocket foi rejeitado por ser bidirecional demais para o caso. Adicionar uma flag de streaming ao endpoint existente também foi rejeitado: geraria ambiguidade de content-type em um serviço multi-tenant que outro produto consome. O custo assumido é manter dois pipelines de IA.'
-        },
-        {
-          title: 'Cytoscape substituindo SVG artesanal',
-          content:
-            'Mil e duzentas linhas de SVG inline foram substituídas por Cytoscape com layout fcose. A migração foi incremental, atrás de paridade testada, e exigiu reimplementar o invariante de sigilo no novo renderizador — a máscara de nós confidenciais é testada no construtor de elementos, não nos pixels.'
-        }
-      ],
+      decisions: [],
       challenges: [
         {
           title: 'Traduzir regulação em invariante verificável',
@@ -279,24 +236,7 @@ export const REDE_BRASIL: ProjectDefinition = {
             'The product operates under Brazilian data protection, anti-corruption and electoral regulation. Sensitive fields under Art. 11 have no column in the Prisma schema — the prohibition is structural absence, not a denied permission. The same rule is defended across five independent layers: the importer rejects, the Zod refinement rejects, the contacts service rejects, RAG ingestion rejects, and the LLM system prompt forbids.'
         }
       ],
-      diagrams: [
-        {
-          id: 'redebrasil-architecture',
-          src: '/diagrams/redebrasil-architecture',
-          title: 'Architecture and integration boundary',
-          caption:
-            'The monorepo, the external gateway mediating all egress, and the two distinct Postgres roles. Note where sensitive-data masking happens: before any prompt leaves the perimeter.',
-          kind: 'component'
-        },
-        {
-          id: 'redebrasil-dossier-stream',
-          src: '/diagrams/redebrasil-dossier-stream',
-          title: 'Dossier generation with SSE streaming',
-          caption:
-            'The signature flow of the product. Note the ordering: the budget gate runs before the stream opens, research steps emit only a label and a count, and persistence happens exactly once, on the successful completion event.',
-          kind: 'sequence'
-        }
-      ],
+      diagrams: [],
       flows: [
         {
           title: 'Public official dossier with live streaming',
@@ -356,33 +296,7 @@ export const REDE_BRASIL: ProjectDefinition = {
           }
         ]
       },
-      decisions: [
-        {
-          title: 'Recursive CTE instead of a graph database',
-          content:
-            'Neo4j and Apache AGE were evaluated and rejected. The recursive CTE in Postgres delivers the path-finding needed without adding a database system to the stack. The cost is a more complex query and a lower performance ceiling; the gain is one less dependency to operate and a single place where data lives.'
-        },
-        {
-          title: 'WORM by privilege, not by convention',
-          content:
-            'Audit log immutability could have been guaranteed by coding discipline. It was guaranteed by a database REVOKE, with a dedicated INSERT-only role. The difference shows up in exactly the scenario that matters: application compromise.'
-        },
-        {
-          title: 'pgvector decided, BM25 in production',
-          content:
-            'The decision to use pgvector on the same instance — rather than Pinecone, Weaviate or Qdrant — is already recorded, with a repository abstraction preserving the migration path. While the embeddings endpoint does not exist upstream, retrieval degrades to BM25 with Portuguese tsvector. The consumer degrades, the contract holds.'
-        },
-        {
-          title: 'SSE on a dedicated endpoint',
-          content:
-            'WebSocket was rejected as too bidirectional for the case. Adding a streaming flag to the existing endpoint was also rejected: it would create content-type ambiguity in a multi-tenant service another product consumes. The accepted cost is maintaining two AI pipelines.'
-        },
-        {
-          title: 'Cytoscape replacing handcrafted SVG',
-          content:
-            'Twelve hundred lines of inline SVG were replaced by Cytoscape with an fcose layout. The migration was incremental, behind tested parity, and required reimplementing the confidentiality invariant in the new renderer — the mask on confidential nodes is tested in the element builder, not in the pixels.'
-        }
-      ],
+      decisions: [],
       challenges: [
         {
           title: 'Translating regulation into verifiable invariants',
