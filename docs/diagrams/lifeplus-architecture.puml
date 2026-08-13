@@ -1,0 +1,46 @@
+@startuml
+' Sem skinparam aqui: a paleta e injetada por tools/render-puml.py
+' para gerar as variantes light e dark a partir desta mesma fonte.
+
+actor "Doctor / Patient" as User
+
+rectangle "Edge" {
+  component "API Gateway\n:8080\nSpring Cloud Gateway" as GW
+}
+
+rectangle "Identity" {
+  component "OAuth2 Authorization Server\n:8090" as AUTH
+}
+
+rectangle "Application services" {
+  component "LifePlus\n:8082\nVaadin Flow UI" as APP
+  component "Chat\n:8085\nWebSocket / STOMP" as CHAT
+  component "Notification API\n:8083" as NOTIF
+}
+
+rectangle "Operations" {
+  component "Spring Boot Admin\n:8081" as ADMIN
+}
+
+queue "RabbitMQ\nnotification-queue\nnotification-ui-update-queue" as MQ
+database "PostgreSQL\n(H2 in dev)" as DB
+
+User --> GW : HTTPS
+GW --> AUTH : /oauth/**
+GW --> NOTIF : /notification/**
+GW --> APP : /app/**  and  /
+GW -[#gray]-> GW : validates JWT\nbefore forwarding
+
+APP --> DB
+CHAT --> DB
+NOTIF --> DB
+
+APP --> MQ : publishes event (JSON)
+MQ --> NOTIF : @RabbitListener
+APP <--> CHAT : real-time messages
+
+ADMIN ..> APP : health / metrics
+ADMIN ..> CHAT
+ADMIN ..> NOTIF
+
+@enduml

@@ -199,13 +199,15 @@
           ‹
         </button>
         <div class="projects-carousel" #projectsCarousel>
-          <app-project-card
-            [title]="t().projects.lifeplus.name"
-            [description]="t().projects.lifeplus.shortDescription"
-            routerLink="/projects/lifeplus"
-            [viewProjectLabel]="t().projects.viewProject"
-            icon="🏥">
-          </app-project-card>
+          @for (project of projects(); track project.id) {
+            <app-project-card
+              [title]="project.content.name"
+              [description]="project.content.tagline"
+              [routerLink]="'/projects/' + project.id"
+              [viewProjectLabel]="t().projects.viewProject"
+              [icon]="project.icon">
+            </app-project-card>
+          }
         </div>
         <button type="button" class="carousel-nav carousel-nav--next" (click)="scrollProjects(1)" aria-label="Próximo">
           ›

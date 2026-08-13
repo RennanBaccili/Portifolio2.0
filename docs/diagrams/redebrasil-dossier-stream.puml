@@ -1,0 +1,73 @@
+@startuml
+' Sem skinparam aqui: a paleta e injetada por tools/render-puml.py
+' para gerar as variantes light e dark a partir desta mesma fonte.
+
+actor Researcher
+participant "DossierPage\nuseDossier" as UI
+participant "PowerMapController" as CTRL
+participant "PowerMapService" as SVC
+participant "AiCostService\nbudget gate" as COST
+participant "DossierIngestion\nBM25 retrieval" as RAG
+participant "IntegrationsClient" as CLIENT
+participant "integrations-service" as GW
+participant "Claude Sonnet" as LLM
+database "PostgreSQL" as DB
+
+Researcher -> UI : Generate dossier
+UI -> CTRL : POST /dossier/generate/stream
+CTRL -> CTRL : CSRF guard + @Roles + @Audited
+CTRL -> SVC : generateStream(abortSignal)
+
+== Gate before opening the stream ==
+SVC -> COST : assertWithinBudgetOrThrow
+alt budget exceeded
+  SVC --> UI : event: error — no stream opened
+end
+
+== Retrieval ==
+SVC --> UI : event: step queued
+SVC -> RAG : retrieveRelevant(contactId)
+RAG -> DB : ts_rank_cd + plainto_tsquery
+RAG --> SVC : top-6 chunks (confidentiality-aware)
+SVC --> UI : event: step retrieval (N chunks)
+
+== Public sources ==
+loop DOU, CGU, Wikipedia, Receita
+  SVC --> UI : event: step research (label + count only)
+  SVC -> CLIENT : research(source)
+  CLIENT -> GW : POST /v1/research + HMAC
+  note right : a failing source degrades,\nit never aborts the pipeline
+end
+
+== Generation ==
+SVC --> UI : event: step generation
+SVC -> CLIENT : llmStream(maxTokens 6000)
+CLIENT -> GW : POST /v1/llm/stream (SSE)\nidle timeout 60s, not total duration
+GW -> GW : Art. 11 masking\nserver-side
+GW -> LLM : messages.create(stream)
+
+loop each token
+  LLM --> UI : event: token (live text)
+end
+LLM --> SVC : done { model, usage }
+
+alt abort / disconnect / parse failure
+  SVC -> SVC : return WITHOUT persisting anything
+end
+
+== Persist ==
+SVC -> SVC : parse output — Zod +\n12 sections in exact order
+SVC --> UI : event: step persisting
+SVC -> DB : INSERT dossier version\nstatus = unrevised
+SVC -> COST : recordUsage (best effort)
+SVC --> UI : event: done
+CTRL -> DB : audit event via pg-boss\nINSERT audit_log (WORM)
+
+note over UI
+  The generated dossier cannot be
+  reviewed by whoever generated it,
+  and external export requires a
+  separate DPO approval.
+end note
+
+@enduml

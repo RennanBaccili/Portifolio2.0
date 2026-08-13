@@ -1,0 +1,58 @@
+@startuml
+' Sem skinparam aqui: a paleta e injetada por tools/render-puml.py
+' para gerar as variantes light e dark a partir desta mesma fonte.
+
+actor "6 RBAC roles\n(Analyst, Manager, Director,\nResearcher, Comms, DPO)" as Users
+
+rectangle "REDE BRASIL — pnpm monorepo (Fly.io, region gru)" {
+  component "apps/web\nReact 18 + Vite + PWA\nCytoscape graph · MapLibre map" as WEB
+  component "apps/api\nNestJS 10 · 30 modules · 256 endpoints" as API
+  component "packages/shared\nisomorphic Zod schemas" as SHARED
+  component "Job runner\npg-boss" as JOBS
+}
+
+database "PostgreSQL 15\n50 models · 39 migrations\naudit_log (WORM)" as DB
+storage "Tigris S3\naudio · attachments · exports" as S3
+
+rectangle "integrations-service\n(separate, multi-tenant)" {
+  component "20 endpoints + 8 webhooks\nREST + HMAC" as GW
+  component "Art. 11 masking\nserver-side, no opt-out" as MASK
+}
+
+cloud "External providers" {
+  component "Anthropic Claude Sonnet\ndossier · briefing · enrichment" as CLAUDE
+  component "OpenAI Whisper\nPT-BR transcription" as WHISPER
+  component "DOU · CGU · Wikipedia\nReceita Federal" as SOURCES
+  component "Resend · Twilio\nMeta WhatsApp" as COMMS
+}
+
+Users --> WEB : HTTPS · PWA
+WEB --> API : REST/JSON + SSE\nJWT httpOnly cookie + CSRF
+WEB ..> SHARED : same validation schemas
+API ..> SHARED
+
+API --> DB : Prisma\nrole app_user
+JOBS --> DB : INSERT only\nrole audit_app_user
+API --> S3 : presigned URLs
+
+API --> GW : REST + HMAC\nconsumer-only, never calls providers directly
+GW --> MASK
+MASK --> CLAUDE
+MASK --> WHISPER
+GW --> SOURCES
+GW --> COMMS
+
+note bottom of DB
+  REVOKE UPDATE, DELETE, TRUNCATE
+  ON audit_log FROM app_user
+  — immutability guaranteed by the
+  database, not by application code
+end note
+
+note right of MASK
+  Sensitive Art. 11 fields are masked
+  before any prompt leaves the perimeter.
+  The API never holds provider API keys.
+end note
+
+@enduml

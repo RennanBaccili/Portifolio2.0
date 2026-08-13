@@ -1,0 +1,45 @@
+@startuml
+' Sem skinparam aqui: a paleta e injetada por tools/render-puml.py
+' para gerar as variantes light e dark a partir desta mesma fonte.
+
+actor Doctor
+participant "API Gateway\n:8080" as GW
+participant "OAuth2 Server\n:8090" as AUTH
+participant "LifePlus\n:8082" as APP
+participant "Chat\n:8085" as CHAT
+database "Database" as DB
+queue "RabbitMQ" as MQ
+participant "Notification API\n:8083" as NOTIF
+
+== Authentication ==
+Doctor -> GW : POST /login
+GW -> AUTH : OAuth2 client_credentials
+AUTH --> GW : JWT access token
+GW --> Doctor : authenticated session
+
+== Appointment list ==
+Doctor -> GW : opens appointments
+GW -> APP : /app/appointments (Bearer JWT)
+APP -> DB : query Appointment
+DB --> APP : appointments for the user
+APP --> Doctor : grid + teleconsultation button
+
+== Teleconsultation ==
+Doctor -> APP : starts teleconsultation
+activate APP
+APP -> DB : validate appointment status
+APP -> CHAT : open WebSocket / STOMP channel
+APP --> Doctor : WebRTC room + chat + medical record
+deactivate APP
+
+== Medical record and notification ==
+Doctor -> APP : fills medical record
+APP -> DB : persist MedicalRecord
+APP -> MQ : publish to notification-queue
+MQ -> NOTIF : @RabbitListener consumes
+NOTIF -> DB : persist notification
+NOTIF -> MQ : notification-ui-update-queue
+MQ --> APP : UI update event
+APP --> Doctor : notification badge updated
+
+@enduml

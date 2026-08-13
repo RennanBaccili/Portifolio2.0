@@ -1,0 +1,69 @@
+@startuml
+' Sem skinparam aqui: a paleta e injetada por tools/render-puml.py
+' para gerar as variantes light e dark a partir desta mesma fonte.
+' Arestas [hidden] empilham os grupos verticalmente — sem elas o PlantUML
+' espalha tudo lado a lado e o diagrama fica ilegivel quando reduzido.
+
+actor "Creator" as User
+
+rectangle "Control plane — Next.js 16 / React 19" {
+  component "Workspace · Review · History\nTypeScript strict, sealed I/O boundary" as WEB
+}
+
+rectangle "Backend — FastAPI (Python 3.13), 49 endpoints" {
+  component "APScheduler\n4 background jobs" as SCHED
+  component "Trend engine\n9-step deterministic scoring" as TREND
+  component "Script generation\n4-layer composed prompts" as SCRIPT
+  component "Content safety gate\ntwo risk profiles" as SAFE
+  component "Human review queue" as REVIEW
+  component "Publish dispatch" as PUB
+}
+
+rectangle "Generation pipelines" {
+  component "A — Stock footage\nPexels + ffmpeg" as PA
+  component "B — AI video\nMiniMax Hailuo" as PB
+  component "C — Avatar\nvoice clone + lip-sync" as PC
+}
+
+database "SQLite on Fly volume\n12 tables · 31 migrations" as DB
+
+cloud "External services" {
+  component "Claude Haiku · OpenAI" as LLM
+  component "Hailuo · ElevenLabs · fal.ai" as MEDIA
+  component "Google Trends · Reddit · YouTube" as SIGNAL
+  component "Pexels · Pixabay" as STOCK
+  component "TikTok · LinkedIn" as SOCIAL
+}
+
+User --> WEB : HTTPS
+WEB --> SCHED : REST/JSON\nJWT httpOnly cookie
+
+SCHED --> TREND
+TREND --> SIGNAL : 3 sources in parallel\n15s timeout each
+TREND --> DB
+
+SCHED --> SCRIPT
+SCRIPT --> LLM : Claude default,\nGPT opt-in per niche
+SCRIPT --> SAFE
+
+SAFE --> PA : safety runs BEFORE\nany paid call
+SAFE --> PB
+SAFE --> PC
+PA --> STOCK
+PB --> MEDIA
+PC --> MEDIA
+
+PA --> REVIEW
+PB --> REVIEW
+PC --> REVIEW
+REVIEW --> PUB : only after\nhuman approval
+PUB --> SOCIAL
+PUB --> DB
+
+' Empilhamento vertical dos grupos
+WEB -[hidden]down- SCHED
+PUB -[hidden]down- PA
+PC -[hidden]down- DB
+DB -[hidden]down- LLM
+
+@enduml

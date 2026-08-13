@@ -1,0 +1,61 @@
+@startuml
+' Sem skinparam aqui: a paleta e injetada por tools/render-puml.py
+' para gerar as variantes light e dark a partir desta mesma fonte.
+
+actor Creator
+participant "Next.js\nWorkspace" as WEB
+participant "APScheduler" as SCHED
+participant "Trend engine" as TREND
+participant "Claim lock\nbegin_immediate" as LOCK
+participant "Script gen\n(Claude / GPT)" as SCRIPT
+participant "Safety gate" as SAFE
+participant "Video pipeline\n(ffmpeg)" as PIPE
+participant "Review queue" as REVIEW
+participant "Publisher" as PUB
+database "SQLite" as DB
+
+== Trend detection (every 30 min) ==
+SCHED -> TREND : run detection for user
+TREND -> TREND : 3 sources in parallel\nThreadPool, 15s timeout each
+TREND -> TREND : normalize per source, recency decay,\nweighted merge, fuzzy dedupe, velocity
+TREND -> DB : persist top trends + context
+
+== Claim then work ==
+SCHED -> LOCK : acquire
+LOCK -> DB : SELECT ... FOR UPDATE\nINSERT placeholder row
+LOCK --> SCHED : release
+note right of LOCK
+  Slow I/O stays OUTSIDE the lock.
+  Holding it across LLM and ffmpeg
+  calls cascaded "database is locked"
+end note
+
+== Generation ==
+SCHED -> SCRIPT : generate script for trend
+SCRIPT -> SCRIPT : compose system prompt\nniche + duration + archetype + base
+SCRIPT -> SCRIPT : parse, enforce scene count\nand word cap
+SCRIPT --> DB : status = script_ready
+
+SCHED -> SAFE : check script
+SAFE --> SCHED : pass (before any paid call)
+
+SCHED -> PIPE : assemble video
+PIPE -> PIPE : voiceover + word timings,\nfootage per scene with fallback,\nASS captions, Ken Burns, -14 LUFS
+PIPE -> DB : status = ready
+PIPE -> REVIEW : create review item\n(in finally — success OR failure)
+
+== Human gate ==
+Creator -> WEB : opens review queue
+WEB -> REVIEW : GET pending items
+REVIEW --> Creator : video preview + hook/body/CTA
+Creator -> WEB : Approve
+WEB -> REVIEW : status = approved
+
+== Publish ==
+REVIEW -> PUB : dispatch by channel
+PUB -> PUB : refresh OAuth token if expiring
+PUB -> DB : status = posting
+PUB --> Creator : published + AI disclosure required
+PUB -> DB : status = posted, delete local MP4
+
+@enduml

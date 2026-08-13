@@ -1,0 +1,283 @@
+// ============================================
+// PROJECT DETAIL — SECOES COMPARTILHADAS
+// ============================================
+//
+// Estes blocos ficam no escopo global, e nao no SCSS do componente,
+// porque o project-detail.component.scss ja esta perto do budget
+// `anyComponentStyle` (10kB) do Angular. Sao padroes de pagina
+// reutilizaveis por qualquer projeto do portfolio.
+
+@import './variables';
+@import './mixins';
+
+// --- Cabecalho: resumo, metadados, stack e metricas ---
+
+// O cabecalho da pagina centraliza titulo e subtitulo; daqui para baixo
+// o texto volta a ser alinhado a esquerda, que e o que se le confortavelmente.
+.project-detail__summary {
+  margin-top: $spacing-md;
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 68ch;
+  text-align: left;
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-md $spacing-xl;
+  margin-top: $spacing-lg;
+  text-align: left;
+}
+
+.project-meta__item {
+  min-width: 0;
+}
+
+.project-meta__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: $spacing-xs;
+}
+
+.project-meta__value {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+  list-style: none;
+}
+
+.project-stack__chip {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+// Colunas fixas em vez de auto-fit: com auto-fit, 6 metricas cabiam 5 em uma
+// linha e deixavam a sexta orfa na linha seguinte.
+.project-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-sm;
+  margin-top: $spacing-lg;
+  list-style: none;
+  text-align: left;
+}
+
+@media (max-width: $breakpoint-sm) {
+  .project-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.project-metrics__item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  padding: $spacing-sm;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-sm;
+}
+
+.project-metrics__value {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.project-metrics__label {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+// --- Diagramas de arquitetura ---
+
+// Os diagramas sao muito mais largos que a coluna de texto (900px). Espremidos
+// ali, o rotulo dos nos fica ilegivel. Esta secao rompe o container e usa a
+// largura da pagina; o detalhe fino continua a um clique, no lightbox.
+.project-section--diagrams {
+  width: min(1400px, calc(100vw - 3rem));
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.project-diagrams {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+}
+
+.project-diagram {
+  margin: 0;
+}
+
+.project-diagram__title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: $spacing-sm;
+}
+
+.project-diagram__frame {
+  padding: $spacing-md;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: $border-radius-md;
+  overflow-x: auto;
+}
+
+// Diagramas variam muito de proporcao: um de componentes e largo e baixo,
+// um de sequencia e estreito e alto. Limitar pela ALTURA mantem o texto
+// legivel nos dois casos — o excesso de largura rola no frame acima.
+.project-diagram__img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 85vh;
+  height: auto;
+  margin: 0 auto;
+  cursor: zoom-in;
+}
+
+.project-diagram__caption {
+  margin-top: $spacing-sm;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  max-width: 68ch;
+}
+
+.project-diagram__zoom-hint {
+  display: inline-block;
+  margin-top: $spacing-xs;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+// --- Destaque de inteligencia artificial ---
+
+.project-ai {
+  padding: $spacing-lg;
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--primary-color);
+  border-radius: $border-radius-md;
+  background: var(--bg-card);
+}
+
+.project-ai__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: $spacing-sm;
+}
+
+.project-ai__summary {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 68ch;
+}
+
+.project-ai__points {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+}
+
+.project-ai__point-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-light);
+  margin-bottom: $spacing-xs;
+}
+
+.project-ai__point-content {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+// --- Fluxos numerados ---
+
+.project-steps {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: project-step;
+}
+
+.project-steps__item {
+  position: relative;
+  padding-left: 3rem;
+  counter-increment: project-step;
+
+  &::before {
+    content: counter(project-step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: #fff;
+    background: $gradient-primary;
+    border-radius: 50%;
+  }
+}
+
+.project-steps__title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: $spacing-xs;
+  padding-top: 0.25rem;
+}
+
+.project-steps__content {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 68ch;
+}
+
+@media (max-width: $breakpoint-sm) {
+  .project-meta {
+    gap: $spacing-sm $spacing-lg;
+  }
+
+  .project-ai {
+    padding: $spacing-md;
+  }
+
+  .project-steps__item {
+    padding-left: 2.5rem;
+  }
+}

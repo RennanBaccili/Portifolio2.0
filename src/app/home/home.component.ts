@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, inject, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslationService } from '../services/translation.service';
+import { ProjectsService } from '../services/projects.service';
 import { LanguageSelectorComponent } from '../components/language-selector/language-selector.component';
 import { ButtonComponent, ButtonVariant, ButtonType } from '../components/button/button.component';
 import { SkillCardComponent } from '../components/skill-card/skill-card.component';
@@ -28,6 +29,7 @@ import { ProjectCardComponent } from '../components/project-card/project-card.co
 export class HomeComponent {
   translationService = inject(TranslationService);
   t = this.translationService.t;
+  projects = inject(ProjectsService).projects;
   scrollIndicatorVisible = signal(true);
 
   ButtonVariant = ButtonVariant;

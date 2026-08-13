@@ -9,88 +9,186 @@
       ‹ {{ t().projectDetail.backToProjects }}
     </a>
 
-    @if (title()) {
-      <header class="project-detail__header">
-        <h1 class="project-detail__title">{{ title() }}</h1>
-        @if (subtitle()) {
-          <p class="project-detail__subtitle">{{ subtitle() }}</p>
-        }
-      </header>
+    @if (project(); as current) {
+      @if (content(); as data) {
+        <header class="project-detail__header">
+          <h1 class="project-detail__title">{{ data.name }}</h1>
+          <p class="project-detail__subtitle">{{ data.subtitle }}</p>
 
-      <section class="project-section project-section--architecture">
-        <h2 class="project-section__title">{{ t().projectDetail.overviewAndArchitecture }}</h2>
+          <p class="project-detail__summary">{{ data.summary }}</p>
 
-        @if (architectureSections().length > 0) {
-          <div class="project-section__body">
-            @for (section of architectureSections(); track section.title) {
-              <article class="project-article">
-                <h3 class="project-article__title">{{ section.title }}</h3>
-                <p class="project-article__content">
-                  {{ section.content }}
-                </p>
-              </article>
-            }
-          </div>
-        }
-      </section>
+          <dl class="project-meta">
+            <div class="project-meta__item">
+              <dt class="project-meta__label">{{ t().projectDetail.roleLabel }}</dt>
+              <dd class="project-meta__value">{{ data.role }}</dd>
+            </div>
+            <div class="project-meta__item">
+              <dt class="project-meta__label">{{ t().projectDetail.stackLabel }}</dt>
+              <dd class="project-meta__value">
+                <ul class="project-stack">
+                  @for (item of current.stack; track item) {
+                    <li class="project-stack__chip">{{ item }}</li>
+                  }
+                </ul>
+              </dd>
+            </div>
+          </dl>
 
-      <section class="project-section project-section--ui">
-        <h2 class="project-section__title">{{ t().projectDetail.functionalFlowAndScreens }}</h2>
-
-        <p class="project-section__intro">
-          {{ t().projectDetail.flowIntro }}
-        </p>
-
-        <div class="project-flow">
-          <div class="project-flow__hint">
-            <span class="project-flow__hint-dot"></span>
-            <span class="project-flow__hint-text">
-              {{ t().projectDetail.flowHint }}
-            </span>
-          </div>
-
-          @for (section of uiSections(); track section.id; let i = $index) {
-            <article
-              class="project-flow__slide"
-              #flowSlide
-            >
-              <div class="project-flow__slide-body">
-                <div class="project-flow__image">
-                  <div class="project-flow__image-frame">
-                    @if (section.imageSrc) {
-                      <img
-                        class="project-flow__image-img"
-                        [src]="section.imageSrc"
-                        [alt]="section.name + ' - ' + title()"
-                        [title]="section.name + ' - ' + title()"
-                        loading="lazy"
-                        (click)="openImageFullscreen(section.imageSrc!)"
-                      />
-                    } @else {
-                      <span class="project-flow__image-label">
-                        {{ section.imageLabel }}
-                      </span>
-                    }
-                  </div>
-                </div>
-
-                <div class="project-flow__text">
-                  <p class="project-flow__paragraph">
-                    {{ section.description1 }}
-                  </p>
-                  <p class="project-flow__paragraph">
-                    {{ section.description2 }}
-                  </p>
-                </div>
-              </div>
-            </article>
+          @if (data.metrics.length > 0) {
+            <ul class="project-metrics">
+              @for (metric of data.metrics; track metric.label) {
+                <li class="project-metrics__item">
+                  <span class="project-metrics__value">{{ metric.value }}</span>
+                  <span class="project-metrics__label">{{ metric.label }}</span>
+                </li>
+              }
+            </ul>
           }
-        </div>
-      </section>
+        </header>
+
+        @if (data.architecture.length > 0) {
+          <section class="project-section project-section--architecture">
+            <h2 class="project-section__title">{{ t().projectDetail.overviewAndArchitecture }}</h2>
+            <div class="project-section__body">
+              @for (section of data.architecture; track section.title) {
+                <article class="project-article">
+                  <h3 class="project-article__title">{{ section.title }}</h3>
+                  <p class="project-article__content">{{ section.content }}</p>
+                </article>
+              }
+            </div>
+          </section>
+        }
+
+        @if (data.diagrams.length > 0) {
+          <section class="project-section project-section--diagrams">
+            <h2 class="project-section__title">{{ t().projectDetail.architectureDiagrams }}</h2>
+            <div class="project-diagrams">
+              @for (diagram of data.diagrams; track diagram.id) {
+                <figure class="project-diagram">
+                  <h3 class="project-diagram__title">{{ diagram.title }}</h3>
+                  <div class="project-diagram__frame">
+                    <img
+                      class="project-diagram__img"
+                      [src]="diagramSrc(diagram.src)"
+                      [alt]="diagram.title + ' - ' + data.name"
+                      [title]="diagram.title"
+                      loading="lazy"
+                      (click)="openImageFullscreen(diagramSrc(diagram.src))"
+                    />
+                  </div>
+                  <figcaption class="project-diagram__caption">
+                    {{ diagram.caption }}
+                    <span class="project-diagram__zoom-hint">{{ t().projectDetail.diagramZoomHint }}</span>
+                  </figcaption>
+                </figure>
+              }
+            </div>
+          </section>
+        }
+
+        <section class="project-section project-section--ai">
+          <h2 class="project-section__title">{{ t().projectDetail.aiFocus }}</h2>
+          <div class="project-ai">
+            <h3 class="project-ai__title">{{ data.ai.title }}</h3>
+            <p class="project-ai__summary">{{ data.ai.summary }}</p>
+            <div class="project-ai__points">
+              @for (point of data.ai.points; track point.title) {
+                <article class="project-ai__point">
+                  <h4 class="project-ai__point-title">{{ point.title }}</h4>
+                  <p class="project-ai__point-content">{{ point.content }}</p>
+                </article>
+              }
+            </div>
+          </div>
+        </section>
+
+        @if (data.flows.length > 0) {
+          <section class="project-section project-section--flows">
+            <h2 class="project-section__title">{{ t().projectDetail.mainFlows }}</h2>
+            <ol class="project-steps">
+              @for (flow of data.flows; track flow.title) {
+                <li class="project-steps__item">
+                  <h3 class="project-steps__title">{{ flow.title }}</h3>
+                  <p class="project-steps__content">{{ flow.content }}</p>
+                </li>
+              }
+            </ol>
+          </section>
+        }
+
+        @if (data.decisions.length > 0) {
+          <section class="project-section project-section--decisions">
+            <h2 class="project-section__title">{{ t().projectDetail.architecturalDecisions }}</h2>
+            <div class="project-section__body">
+              @for (decision of data.decisions; track decision.title) {
+                <article class="project-article">
+                  <h3 class="project-article__title">{{ decision.title }}</h3>
+                  <p class="project-article__content">{{ decision.content }}</p>
+                </article>
+              }
+            </div>
+          </section>
+        }
+
+        @if (data.challenges.length > 0) {
+          <section class="project-section project-section--challenges">
+            <h2 class="project-section__title">{{ t().projectDetail.technicalChallenges }}</h2>
+            <div class="project-section__body">
+              @for (challenge of data.challenges; track challenge.title) {
+                <article class="project-article">
+                  <h3 class="project-article__title">{{ challenge.title }}</h3>
+                  <p class="project-article__content">{{ challenge.content }}</p>
+                </article>
+              }
+            </div>
+          </section>
+        }
+
+        @if (data.screenshots.length > 0) {
+          <section class="project-section project-section--ui">
+            <h2 class="project-section__title">{{ t().projectDetail.functionalFlowAndScreens }}</h2>
+
+            <p class="project-section__intro">{{ t().projectDetail.flowIntro }}</p>
+
+            <div class="project-flow">
+              <div class="project-flow__hint">
+                <span class="project-flow__hint-dot"></span>
+                <span class="project-flow__hint-text">{{ t().projectDetail.flowHint }}</span>
+              </div>
+
+              @for (section of data.screenshots; track section.id) {
+                <article class="project-flow__slide" #flowSlide>
+                  <div class="project-flow__slide-body">
+                    <div class="project-flow__image">
+                      <div class="project-flow__image-frame">
+                        <img
+                          class="project-flow__image-img"
+                          [src]="section.src"
+                          [alt]="section.name + ' - ' + data.name"
+                          [title]="section.name + ' - ' + data.name"
+                          loading="lazy"
+                          (click)="openImageFullscreen(section.src)"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="project-flow__text">
+                      <p class="project-flow__paragraph">{{ section.description1 }}</p>
+                      <p class="project-flow__paragraph">{{ section.description2 }}</p>
+                    </div>
+                  </div>
+                </article>
+              }
+            </div>
+          </section>
+        }
+      }
     } @else {
       <p class="project-detail__not-found">{{ t().projectDetail.projectNotFound }}</p>
     }
   </div>
+
   @if (fullscreenImageSrc()) {
     <div class="image-lightbox" (click)="closeFullscreen()">
       <div class="image-lightbox__backdrop"></div>
@@ -98,18 +196,11 @@
         <img
           class="image-lightbox__img"
           [src]="fullscreenImageSrc()!"
-          [alt]="title() || t().projectDetail.imageViewAlt"
-          [title]="title() || t().projectDetail.imageViewAlt"
+          [alt]="content()?.name || t().projectDetail.imageViewAlt"
+          [title]="content()?.name || t().projectDetail.imageViewAlt"
         />
-        <button
-          type="button"
-          class="image-lightbox__close"
-          (click)="closeFullscreen()"
-        >
-          ✕
-        </button>
+        <button type="button" class="image-lightbox__close" (click)="closeFullscreen()">✕</button>
       </div>
     </div>
   }
 </div>
-

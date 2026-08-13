@@ -1,0 +1,72 @@
+@startuml
+' Sem skinparam aqui: a paleta e injetada por tools/render-puml.py
+' para gerar as variantes light e dark a partir desta mesma fonte.
+' Arestas [hidden] empilham os grupos verticalmente.
+
+actor "Operator" as User
+actor "Data subject\n(public LGPD route)" as Subject
+actor "DPO" as Dpo
+
+rectangle "Frontend" {
+  component "Web — Next.js 15 / React 19\nServer-Component first\n37 pages" as WEB
+  component "Mobile — Expo 52\nhand-rolled PKCE" as MOB
+}
+
+rectangle "API — NestJS 10 on Fastify" {
+  component "24 modules · 39 controllers\n140 REST routes · 1 SSE stream" as API
+  component "Guards: JWT → OperatorContext → Roles\nRLS context set before every query" as GUARD
+}
+
+rectangle "Workers — Python 3.12" {
+  component "25 supervised asyncio tasks\nRedis Streams consumer groups" as WRK
+  component "LOCAL models\nspaCy · XLM-RoBERTa · distiluse 512d" as LOCAL
+}
+
+database "PostgreSQL + pgvector\n82 tables · 146 migrations\n29 with RLS · 5 DB roles" as DB
+queue "Redis Streams\nevents · DLQ · cost caps" as REDIS
+storage "Tigris S3\nmodel weights · exports" as S3
+
+cloud "External" {
+  component "Anthropic Claude Haiku 4.5" as LLM
+  component "YouTube · X · Meta · RSS\nGDELT · Google Trends" as SRC
+  component "Auth0 · Stripe · Sentry" as SVC
+}
+
+User --> WEB : HTTPS — access token never reaches the browser
+Subject --> WEB : public route, no auth
+Dpo --> WEB : RBAC-gated DPO panel
+MOB --> API : REST + JWT
+
+WEB --> API : REST, server-rendered
+API --> GUARD
+GUARD --> DB : Drizzle — RLS by operator
+API --> REDIS : publish events
+API --> LLM : strategy · term suggestion\n(forced tool-calling, cost-capped)
+API --> SVC
+API --> S3
+
+REDIS --> WRK : consumer groups
+WRK --> DB : raw SQL — schema owned by the API
+WRK --> LOCAL : sentiment · entities · embeddings
+WRK --> LLM : summary · narrative label · source discovery
+WRK --> SRC : egress allowlist enforced
+WRK --> S3 : model weight cache (~11 min cold boot)
+
+note bottom of LOCAL
+  Operator political positioning is
+  regulated sensitive data, so embeddings
+  run locally and never leave the process
+end note
+
+note right of DB
+  Audit, metering and credit ledger are
+  append-only by GRANT and trigger —
+  the application cannot delete them
+end note
+
+WEB -[hidden]down- API
+GUARD -[hidden]down- WRK
+LOCAL -[hidden]down- DB
+S3 -[hidden]down- LLM
+
+@enduml

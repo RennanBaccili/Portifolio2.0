@@ -1,0 +1,62 @@
+@startuml
+' Sem skinparam aqui: a paleta e injetada por tools/render-puml.py
+' para gerar as variantes light e dark a partir desta mesma fonte.
+
+participant "Scheduler" as SCH
+participant "Dispatcher" as DIS
+participant "YouTube API" as YT
+database "PostgreSQL" as DB
+queue "Redis Streams" as RS
+participant "Sentiment\nXLM-RoBERTa (local)" as SENT
+participant "NLP\nspaCy (local)" as NLP
+participant "Utterance cycle\ndistiluse 512d (local)" as UTT
+participant "Narrative cycle\nclustering" as NAR
+participant "Cost cap" as CAP
+participant "Claude Haiku 4.5" as LLM
+
+== Collection ==
+SCH -> DIS : tick every 300s
+DIS -> YT : commentThreads.list
+DIS -> DB : publication and reaction stored separately\nauthor identity salted-hashed
+DIS -> RS : publish mention.captured
+
+== Local classification ==
+RS -> SENT : consume
+SENT -> DB : sentiment label + intensity\nbelow threshold, flag for human review
+RS -> NLP : consume
+NLP -> DB : entities, source region and text region\nnever merged — no guessing below 0.5
+
+== Interpretation ==
+UTT -> DB : speech type by calibrated rules\n(claim, support, mockery, question, noise)
+note right of UTT
+  Nothing is discarded. Noise becomes a row —
+  so the sample can be reported honestly as
+  "1,200 utterances, 300 of them noise"
+end note
+UTT -> DB : 512-dimension meaning vector per utterance
+
+== Narrative clustering ==
+NAR -> DB : read window of claims
+NAR -> NAR : agglomerate at 0.60 similarity\ncalibrated on 24,090 real comment pairs
+alt matches an existing cluster
+  NAR -> DB : attach evidence, update centroid
+else new cluster with 3+ evidences
+  NAR -> CAP : guard(operator)
+  alt cap reached
+    CAP --> NAR : skip — no call made
+  else within budget
+    NAR -> LLM : forced tool call — name this cluster
+    LLM --> NAR : tool_use block\n(free-form answer is an error, not a fallback)
+    NAR -> DB : persist named narrative
+  end
+else new cluster with fewer evidences
+  NAR -> DB : stays emergent — no label, no screen
+end
+NAR -> RS : publish narrative.updated
+
+note over NAR, LLM
+  The model reads GROUPS, never individual comments.
+  A subject with 5,000 utterances costs 6 to 10 calls, not 5,000.
+end note
+
+@enduml
