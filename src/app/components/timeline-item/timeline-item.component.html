@@ -10,6 +10,9 @@
         <span class="timeline-period">{{ period }}</span>
       }
     </div>
+    @if (context) {
+      <p class="timeline-context">{{ context }}</p>
+    }
     @if (hasItems) {
       <ul class="timeline-details">
 @for (item of items; track $index) {

@@ -4,19 +4,11 @@ export const TRENDERTOK: ProjectDefinition = {
   id: 'trendertok',
   icon: '🎬',
   stack: [
-    'Python 3.13',
-    'FastAPI',
-    'Next.js 16',
-    'React 19',
-    'TypeScript strict',
-    'SQLAlchemy + Alembic',
-    'APScheduler',
-    'ffmpeg',
-    'Claude Haiku',
-    'OpenAI',
-    'MiniMax Hailuo',
-    'ElevenLabs',
-    'Fly.io'
+    'Python / FastAPI',
+    'Next.js / React',
+    'TypeScript',
+    'Multi-provider LLM orchestration',
+    'Cloud (Fly.io)'
   ],
   content: {
     pt: {

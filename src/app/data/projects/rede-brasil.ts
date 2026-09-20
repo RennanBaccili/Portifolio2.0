@@ -4,19 +4,11 @@ export const REDE_BRASIL: ProjectDefinition = {
   id: 'rede-brasil',
   icon: '🕸️',
   stack: [
-    'TypeScript 5.5',
-    'NestJS 10',
-    'React 18',
-    'Vite + PWA',
-    'PostgreSQL 15',
-    'Prisma',
-    'pg-boss',
-    'Zod',
-    'Cytoscape.js',
-    'MapLibre GL',
-    'Claude Sonnet',
-    'Whisper',
-    'Fly.io'
+    'TypeScript / NestJS',
+    'React (PWA)',
+    'PostgreSQL',
+    'LLM / RAG (Claude)',
+    'Cloud (Fly.io)'
   ],
   content: {
     pt: {

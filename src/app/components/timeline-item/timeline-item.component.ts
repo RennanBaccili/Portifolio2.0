@@ -12,6 +12,7 @@ export class TimelineItemComponent {
   @Input() title: string = '';
   @Input() company: string = '';
   @Input() period?: string;
+  @Input() context?: string;
   @Input() items: string[] = [];
 
   get hasItems(): boolean {

@@ -128,6 +128,7 @@
           [title]="t().experience.rodonaves.title"
           [company]="t().experience.rodonaves.company"
           [period]="t().experience.rodonaves.period"
+          [context]="t().experience.rodonaves.context"
           [items]="t().experience.rodonaves.items">
         </app-timeline-item>
         <app-timeline-item
@@ -137,10 +138,10 @@
           [items]="t().experience.jediet.items">
         </app-timeline-item>
         <app-timeline-item
-          [title]="t().experience.prefeitura.title"
-          [company]="t().experience.prefeitura.company"
-          [period]="t().experience.prefeitura.period"
-          [items]="t().experience.prefeitura.items">
+          [title]="t().experience.selfEmployed.title"
+          [company]="t().experience.selfEmployed.company"
+          [period]="t().experience.selfEmployed.period"
+          [items]="t().experience.selfEmployed.items">
         </app-timeline-item>
       </div>
     </div>
@@ -153,38 +154,33 @@
       <div class="skills-grid">
         <app-skill-card
           icon="💻"
-          [title]="t().skills.categories.languages"
-          [skills]="['C#', 'TypeScript', 'Java', 'Python']">
-        </app-skill-card>
-        <app-skill-card
-          icon="🎨"
-          [title]="t().skills.categories.frontend"
-          [skills]="['Angular', 'React', 'Vaadin']">
-        </app-skill-card>
-        <app-skill-card
-          icon="⚙️"
-          [title]="t().skills.categories.backend"
-          [skills]="['.NET', 'NestJS', 'Spring Boot']">
-        </app-skill-card>
-        <app-skill-card
-          icon="🖥️"
-          [title]="t().skills.categories.desktop"
-          [skills]="['Windows Forms']">
+          [title]="t().skills.categories.languagesFrameworks"
+          [skills]="['C#', '.NET', 'Angular', 'TypeScript', 'JavaScript', 'React']">
         </app-skill-card>
         <app-skill-card
           icon="🗄️"
           [title]="t().skills.categories.databases"
-          [skills]="['Oracle', 'PostgreSQL', 'MySQL']">
+          [skills]="['PostgreSQL']">
         </app-skill-card>
         <app-skill-card
           icon="☁️"
-          [title]="t().skills.categories.cloud"
-          [skills]="['AWS', 'EC2', 'S3', 'RDS', 'IAM', 'Lambda', 'API Gateway', 'Docker', 'Git', 'CI/CD']">
+          [title]="t().skills.categories.cloudInfrastructure"
+          [skills]="['AWS', 'CI/CD', 'Jenkins', 'Rancher']">
+        </app-skill-card>
+        <app-skill-card
+          icon="🏗️"
+          [title]="t().skills.categories.architecture"
+          [skills]="['Event-driven', 'RabbitMQ', 'Microservices']">
+        </app-skill-card>
+        <app-skill-card
+          icon="📊"
+          [title]="t().skills.categories.observability"
+          [skills]="['Application Insights', 'Structured logging']">
         </app-skill-card>
         <app-skill-card
           icon="🤖"
-          [title]="t().skills.categories.ai"
-          [skills]="['LLMs', 'RAG', 'OpenAI API', 'intelligent assistants']">
+          [title]="t().skills.categories.appliedAi"
+          [skills]="['LLMs', 'RAG', 'Intelligent assistants']">
         </app-skill-card>
       </div>
     </div>
@@ -224,8 +220,8 @@
         {{ t().contact.description }}
       </p>
       <div class="contact-buttons">
-        <app-button href="mailto:rennanbaccili@gmail.com" [variant]="ButtonVariant.PRIMARY" [text]="t().contact.contactButton"></app-button>
-        <app-button href="https://www.linkedin.com/in/rennan-bacili-dev/" [variant]="ButtonVariant.SECONDARY" [text]="t().contact.linkedin" [targetValue]="'_blank'"></app-button>
+        <app-button href="mailto:rennanabveloso@gmail.com" [variant]="ButtonVariant.PRIMARY" [text]="t().contact.contactButton"></app-button>
+        <app-button href="https://www.linkedin.com/in/rennan-bacili" [variant]="ButtonVariant.SECONDARY" [text]="t().contact.linkedin" [targetValue]="'_blank'"></app-button>
         <app-button href="https://github.com/RennanBaccili" [variant]="ButtonVariant.SECONDARY" [text]="t().contact.github" [targetValue]="'_blank'"></app-button>
         <app-button 
             href="https://wa.me/19995775187" 

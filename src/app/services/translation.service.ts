@@ -59,6 +59,7 @@ export interface Translations {
       title: string;
       company: string;
       period: string;
+      context: string;
       items: string[];
     };
     jediet: {
@@ -67,7 +68,7 @@ export interface Translations {
       period: string;
       items: string[];
     };
-    prefeitura: {
+    selfEmployed: {
       title: string;
       company: string;
       period: string;
@@ -78,13 +79,12 @@ export interface Translations {
   skills: {
     title: string;
     categories: {
-      languages: string;
-      frontend: string;
-      backend: string;
-      desktop: string;
+      languagesFrameworks: string;
       databases: string;
-      cloud: string;
-      ai: string;
+      cloudInfrastructure: string;
+      architecture: string;
+      observability: string;
+      appliedAi: string;
     };
   };
   // Projects Section
@@ -127,16 +127,16 @@ const translations: Record<Language, Translations> = {
     hero: {
       greeting: 'Olá, eu sou',
       name: 'Rennan',
-      subtitle: 'Full Stack Software Engineer',
-      description: 'Desenvolvedor apaixonado por criar soluções escaláveis e de alta qualidade, com foco em arquitetura de software, inteligência artificial e melhores práticas.',
+      subtitle: 'Software Engineer | .NET & C# | Full Stack | AWS',
+      description: 'Transformo processos manuais em sistemas automatizados que geram resultado mensurável: já reduzi o tempo de execução de um fluxo crítico em 90% e cortei um deploy de 30 minutos para 1 minuto. Full stack em .NET (C#) e Angular, com AWS e IA aplicada.',
       aboutButton: 'Sobre Mim',
       skillsButton: 'Tecnologias'
     },
     about: {
       title: 'Sobre Mim',
-      intro: 'Sou um Full Stack Software Engineer com 3 anos de experiência em desenvolvimento de software, formado em Análise e Desenvolvimento de Sistemas pela Uninter, com pós-graduação em Engenharia de Computação e outra em Ciência de Dados e Inteligência Artificial.',
-      paragraph1: 'Trabalho no desenvolvimento de soluções frontend, backend e desktop, participando de todo o ciclo de vida da aplicação, desde a coleta de requisitos até o deploy em produção e manutenção.',
-      paragraph2: 'Tenho forte foco em qualidade de código, escalabilidade, arquitetura de software e melhores práticas. Em projetos recentes, tenho trabalhado ativamente com Inteligência Artificial aplicada, especialmente no desenvolvimento de assistentes inteligentes e soluções baseadas em LLM, utilizando RAG e integração com APIs de IA.',
+      intro: 'Sou Full Stack Software Engineer com 6 anos de experiência em desenvolvimento de software, incluindo os últimos 3 anos na Rodonaves construindo sistemas corporativos críticos em .NET (C#), Angular e AWS. Formado em Análise e Desenvolvimento de Sistemas pela Uninter, com pós-graduação em Engenharia de Computação e outra em Ciência de Dados e Inteligência Artificial. AWS Certified Solutions Architect – Associate.',
+      paragraph1: 'Meu foco é resolver problema de negócio com código e medir o resultado. Redesenhei um fluxo manual crítico na Rodonaves e reduzi o tempo de execução de ~35 minutos para 3 minutos (-90%) em mais de 300 filiais, e troquei um deploy manual de 30 minutos por um pipeline de CI/CD de 1 minuto (-97%).',
+      paragraph2: 'Também lidero modernização de sistemas legados — migrando telas Windows Forms para Angular sem interromper a operação — e apliquei IA de forma prática, implementando um assistente inteligente com LLM e RAG que reduziu o tempo que os times gastam procurando informação.',
       etec: 'Formação técnica em Informática para Internet pela ETEC Manoel dos Reis Araújo (2015 - 2018).',
       highlights: {
         graduation: {
@@ -165,7 +165,7 @@ const translations: Record<Language, Translations> = {
         },
         experience: {
           title: 'Experiência',
-          description: '5+ anos desenvolvendo soluções'
+          description: '6 anos desenvolvendo soluções'
         }
       }
     },
@@ -173,47 +173,48 @@ const translations: Record<Language, Translations> = {
       title: 'Experiência Profissional',
       current: 'Atual',
       rodonaves: {
-        title: 'Full Stack Software Engineer',
+        title: 'Software Engineer',
         company: 'Rodonaves',
-        period: '2 anos (Atual)',
+        period: '2023 – Presente (3 anos)',
+        context: 'Frete & logística — uma das maiores transportadoras do Brasil, ~R$2,5 bi de receita anual, 9.000+ funcionários, 15 hubs de transferência de carga.',
         items: [
-          'Desenvolvimento e manutenção de aplicações web e desktop (Windows Forms .NET)',
-          'Trabalho em sistemas corporativos críticos de alta disponibilidade',
-          'Integração entre aplicações desktop, APIs backend e serviços cloud',
-          'Contribuição para melhorias arquiteturais, otimização de performance e escalabilidade',
-          'Suporte para automação de processos e adoção de soluções baseadas em IA'
+          'Redesenhei um fluxo manual crítico em processo automatizado com .NET (C#), reduzindo o tempo de execução de ~35 minutos para 3 minutos (-90%) em mais de 300 filiais',
+          'Implementei pipelines de CI/CD (Jenkins no Rancher), substituindo um deploy manual de 30 minutos por um deploy de 1 minuto (-97%)',
+          'Liderei a adoção de um assistente inteligente com LLM e RAG para documentação interna, reduzindo o tempo que os times gastam buscando informação',
+          'Liderei a migração de telas legadas em Windows Forms para Angular, mantendo as duas stacks em paralelo para garantir continuidade do negócio',
+          'Decompus um monólito em serviços orientados a eventos com RabbitMQ e implementei observabilidade estruturada com Application Insights, reduzindo o tempo de diagnóstico de incidentes em produção'
         ]
       },
       jediet: {
-        title: 'Software Engineer',
+        title: 'Software Engineer (Part-time)',
         company: 'Jediet',
-        period: '1 ano',
+        period: 'Nov 2023 – Mar 2024 (5 meses)',
         items: [
-          'Desenvolvimento de aplicações web',
-          'Implementação de novas funcionalidades e melhorias contínuas',
-          'Participação em decisões técnicas e evolução da arquitetura do produto'
+          'Ajudei a arquitetar o produto do zero com Angular, .NET (C#) e PostgreSQL, cobrindo levantamento de requisitos, desenho do pipeline de dados e arquitetura do produto',
+          'Apliquei Clean Architecture e TDD desde o início do projeto, garantindo uma base de código testável, desacoplada e escalável',
+          'Conduzi o desenvolvimento do MVP do conceito até um produto funcional pronto para o mercado, em conjunto com design de produto e engenharia'
         ]
       },
-      prefeitura: {
-        title: 'Aprendiz em TI / Infraestrutura',
-        company: 'Prefeitura Municipal de Santa Rita do Passa Quatro',
-        period: '2018 - 2019',
+      selfEmployed: {
+        title: 'Software Engineer (Full-time)',
+        company: 'Autônomo',
+        period: 'Jan 2023 – Jan 2024 (1 ano e 1 mês)',
         items: [
-          'Suporte e manutenção de equipamentos e rede',
-          'Atuação em infraestrutura de TI no setor público'
+          'Redesenhei fluxos de gestão de restaurante em uma aplicação web full stack com React e .NET (C#), habilitando controle de cardápio em tempo real, gestão de equipe e permissionamento por papel',
+          'Construí um sistema de controle de acesso granular com múltiplos papéis de equipe, reduzindo erros operacionais ligados a ações não autorizadas',
+          'Entreguei a solução de ponta a ponta de forma independente, do levantamento de requisitos ao deploy, usando PostgreSQL como banco principal'
         ]
       }
     },
     skills: {
       title: 'Habilidades Técnicas',
       categories: {
-        languages: 'Linguagens',
-        frontend: 'Frontend',
-        backend: 'Backend',
-        desktop: 'Desktop (.NET)',
+        languagesFrameworks: 'Linguagens & Frameworks',
         databases: 'Bancos de Dados',
-        cloud: 'Cloud & DevOps',
-        ai: 'Inteligência Artificial'
+        cloudInfrastructure: 'Cloud & Infraestrutura',
+        architecture: 'Arquitetura',
+        observability: 'Observabilidade',
+        appliedAi: 'IA Aplicada'
       }
     },
     projects: {
@@ -250,16 +251,16 @@ const translations: Record<Language, Translations> = {
     hero: {
       greeting: 'Hello, I am',
       name: 'Rennan',
-      subtitle: 'Full Stack Software Engineer',
-      description: 'Developer passionate about creating scalable and high-quality solutions, with a focus on software architecture, artificial intelligence, and best practices.',
+      subtitle: 'Software Engineer | .NET & C# | Full Stack | AWS',
+      description: 'I turn manual processes into automated systems that produce measurable results: I have cut a critical workflow execution time by 90% and reduced a 30-minute deploy to 1 minute. Full stack in .NET (C#) and Angular, with AWS and applied AI.',
       aboutButton: 'About Me',
       skillsButton: 'Technologies'
     },
     about: {
       title: 'About Me',
-      intro: 'I am a Full Stack Software Engineer with 5 years of experience in software development, holding a degree in Systems Analysis and Development from Uninter, as well as a postgraduate degree in Computer Engineering and another in Data Science and Artificial Intelligence.',
-      paragraph1: 'I work on developing frontend, backend, and desktop solutions, participating in the entire application lifecycle, from requirements gathering to production deployment and maintenance.',
-      paragraph2: 'I have a strong focus on code quality, scalability, software architecture, and best practices. In recent projects, I have been actively working with applied Artificial Intelligence, especially in developing intelligent assistants and LLM-based solutions, using RAG and integrating with AI APIs.',
+      intro: 'Full Stack Software Engineer with 6 years of software development experience, including the last 3 years at Rodonaves building mission-critical enterprise systems in .NET (C#), Angular and AWS. B.Sc. in Systems Analysis and Development from Uninter, with postgraduate degrees in Computer Engineering and in Data Science & AI. AWS Certified Solutions Architect – Associate.',
+      paragraph1: 'My focus is solving business problems with code and measuring the outcome. I redesigned a critical manual workflow at Rodonaves, cutting execution time from ~35 minutes to 3 minutes (-90%) across 300+ branches, and replaced a 30-minute manual deploy with a 1-minute CI/CD pipeline (-97%).',
+      paragraph2: 'I also lead legacy system modernization — migrating Windows Forms screens to Angular without disrupting the business — and apply AI in practice, having built an LLM + RAG intelligent assistant that reduced the time teams spend searching for information.',
       etec: 'Technical degree in Internet Computing from ETEC Manoel dos Reis Araújo (2015 - 2018).',
       highlights: {
         graduation: {
@@ -288,7 +289,7 @@ const translations: Record<Language, Translations> = {
         },
         experience: {
           title: 'Experience',
-          description: '5+ years developing solutions'
+          description: '6 years developing solutions'
         }
       }
     },
@@ -296,47 +297,48 @@ const translations: Record<Language, Translations> = {
       title: 'Professional Experience',
       current: 'Current',
       rodonaves: {
-        title: 'Full Stack Software Engineer',
+        title: 'Software Engineer',
         company: 'Rodonaves',
-        period: '2 years (Current)',
+        period: '2023 – Present (3 years)',
+        context: 'Freight & logistics — one of Brazil\'s largest trucking/logistics companies, ~$500M USD annual revenue, 9,000+ employees, 15 cargo transfer hubs nationwide.',
         items: [
-          'Development and maintenance of web and desktop applications (Windows Forms .NET)',
-          'Work on mission-critical, high-availability corporate systems',
-          'Integration between desktop applications, backend APIs, and cloud services',
-          'Contribution to architectural improvements, performance optimization, and scalability',
-          'Support for process automation and adoption of AI-based solutions'
+          'Redesigned a critical manual workflow into an automated .NET (C#) process, cutting execution time from ~35 minutes to 3 minutes (-90%) across 300+ branches',
+          'Streamlined API delivery with CI/CD pipelines (Jenkins on Rancher), replacing a 30-minute manual deploy with a 1-minute deploy (-97%)',
+          'Led the adoption of an LLM + RAG-based intelligent assistant for internal documentation, reducing the time employees spend searching for information',
+          'Led the migration of legacy Windows Forms screens to Angular, running both stacks in parallel to guarantee business continuity',
+          'Decomposed a monolith into event-driven services using RabbitMQ and implemented structured observability with Application Insights, reducing production incident diagnosis time'
         ]
       },
       jediet: {
-        title: 'Software Engineer',
+        title: 'Software Engineer (Part-time)',
         company: 'Jediet',
-        period: '1 year',
+        period: 'Nov 2023 – Mar 2024 (5 months)',
         items: [
-          'Development of web applications',
-          'Implementation of new features and continuous improvements',
-          'Participation in technical decision-making and product architecture evolution'
+          'Helped architect the product from the ground up using Angular, .NET (C#) and PostgreSQL, covering requirements extraction, data pipeline design and product architecture',
+          'Applied Clean Architecture and TDD principles from the project inception, ensuring a testable, decoupled and scalable codebase',
+          'Drove MVP development from concept to a fully functional, market-ready product, working cross-functionally between product design and engineering'
         ]
       },
-      prefeitura: {
-        title: 'IT / Infrastructure Apprentice',
-        company: 'Santa Rita do Passa Quatro City Hall',
-        period: '2018 - 2019',
+      selfEmployed: {
+        title: 'Software Engineer (Full-time)',
+        company: 'Self-employed',
+        period: 'Jan 2023 – Jan 2024 (1 yr 1 mo)',
         items: [
-          'Hardware and network support and maintenance',
-          'IT infrastructure operations in the public sector'
+          'Redesigned restaurant management workflows into a full-stack web application using React and .NET (C#), enabling real-time menu control, staff management and role-based permissioning',
+          'Built a granular access control system supporting multiple staff roles, reducing operational errors related to unauthorized actions',
+          'Delivered end-to-end solutions independently, from requirements gathering through deployment, using PostgreSQL as the primary database'
         ]
       }
     },
     skills: {
       title: 'Technical Skills',
       categories: {
-        languages: 'Languages',
-        frontend: 'Frontend',
-        backend: 'Backend',
-        desktop: 'Desktop (.NET)',
+        languagesFrameworks: 'Languages & Frameworks',
         databases: 'Databases',
-        cloud: 'Cloud & DevOps',
-        ai: 'Artificial Intelligence'
+        cloudInfrastructure: 'Cloud & Infrastructure',
+        architecture: 'Architecture',
+        observability: 'Observability',
+        appliedAi: 'Applied AI'
       }
     },
     projects: {

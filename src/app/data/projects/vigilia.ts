@@ -4,20 +4,12 @@ export const VIGILIA: ProjectDefinition = {
   id: 'vigilia',
   icon: '📡',
   stack: [
-    'TypeScript 5.6',
-    'NestJS 10 + Fastify',
-    'Python 3.12',
-    'Next.js 15',
-    'React 19',
-    'PostgreSQL + pgvector',
-    'Drizzle ORM',
-    'Redis Streams',
-    'Claude Haiku 4.5',
-    'XLM-RoBERTa',
-    'spaCy',
-    'sentence-transformers',
-    'Terraform',
-    'Fly.io'
+    'TypeScript / NestJS',
+    'Python (ML workers)',
+    'Next.js / React',
+    'PostgreSQL',
+    'Hybrid AI (local NLP + LLM)',
+    'IaC (Terraform) / Cloud (Fly.io)'
   ],
   content: {
     pt: {

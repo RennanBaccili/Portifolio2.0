@@ -4,14 +4,11 @@ export const LIFEPLUS: ProjectDefinition = {
   id: 'lifeplus',
   icon: '🏥',
   stack: [
-    'Java 21',
-    'Spring Boot 3.x',
-    'Spring Cloud Gateway',
-    'Vaadin 24',
+    'Java / Spring Boot',
+    'Microservices',
     'OAuth2 / JWT',
     'RabbitMQ',
     'WebRTC',
-    'WebSocket / STOMP',
     'PostgreSQL'
   ],
   content: {
